@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 import { Outlet } from "react-router-dom";
 import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 
@@ -61,6 +63,11 @@ export default function AppLayout() {
                Valentin Martinez {new Date().getFullYear()}
             </p>
          </footer>
+
+         <ToastContainer 
+            pauseOnFocusLoss={false}
+            pauseOnHover={false}
+         />
       </>
    );
 }

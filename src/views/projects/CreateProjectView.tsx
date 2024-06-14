@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import ProjectForm from "../../components/projects/ProjectForm";
 import { ProjectFormData } from "../../types";
 import { createProject } from "../../api/ProjectAPI";
 
 export default function CreateProjectView() {
-
-   const navigate = useNavigate()
-   const initialValues : ProjectFormData = {
+   const navigate = useNavigate();
+   const initialValues: ProjectFormData = {
       projectName: "",
       clientName: "",
       description: "",
@@ -18,9 +18,13 @@ export default function CreateProjectView() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = async (data : ProjectFormData) => {
-      await createProject(data)
-      navigate('/')
+   const handleForm = async (data: ProjectFormData) => {
+      const response = await createProject(data);
+      response.status === "success" &&
+         toast.success("Proyecto creado correctamente", {
+            autoClose: 3000,
+         });
+      navigate("/");
    };
 
    return (
@@ -45,11 +49,7 @@ export default function CreateProjectView() {
                onSubmit={handleSubmit(handleForm)}
                noValidate
             >
-
-               <ProjectForm
-                  register={register}
-                  errors={errors}
-               />
+               <ProjectForm register={register} errors={errors} />
                <input
                   type="submit"
                   value="Crear Proyecto"
