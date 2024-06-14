@@ -32,7 +32,7 @@ export default function AppLayout() {
 
    return (
       <>
-         <header className="bg-neutral-800 py-5 border-b border-b-neutral-700 ">
+         <header className="bg-neutral-800 py-5 border-b border-b-neutral-700 px-3">
             <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center">
                <div className="w-32">
                   <Logo />

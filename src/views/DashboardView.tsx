@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../api/ProjectAPI";
 import Spinner from "../components/Spinner";
+import DashboardItem from "../components/projects/DashboardItem";
 
 export default function DashboardView() {
    const { data, isLoading } = useQuery({
@@ -32,10 +33,17 @@ export default function DashboardView() {
          <div>
             {isLoading ? (
                <Spinner></Spinner>
+            ) : data && data.length ? (
+               <ul className="mt-10 divide-y-2 divide-gray-200 dark:divide-neutral-800">
+                  {data.map((project) => <DashboardItem
+                     key={project._id}
+                     project={project}
+                  />)}
+               </ul>
             ) : (
-               data && data.map((project) => 
-                  <p>{project.description}</p>
-               )
+               <p className="text-lg text-center py-20 ">No tienes proyectos. {' '}
+                  <Link to={'/projects/create'} className=" font-bold text-purple-700 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-400">Crea uno</Link>
+               </p>
             )}
          </div>
       </>
