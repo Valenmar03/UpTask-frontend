@@ -1,18 +1,11 @@
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
+import { ProjectFormData } from "../../types";
 
 type ProjectFormProps = {
-   register: UseFormRegister<{
-      projectName: string;
-      clientName: string;
-      description: string;
-   }>;
-   errors: FieldErrors<{
-      projectName: string;
-      clientName: string;
-      description: string;
-   }>;
+   register: UseFormRegister<ProjectFormData>;
+   errors: FieldErrors<ProjectFormData>;
 };
 
 export default function ProjectForm({ register, errors }: ProjectFormProps) {
@@ -26,7 +19,6 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
       setAllFieldsFill(true);
    }, [errors]);
 
-   console.log(errors);
    return (
       <>
          <div className="mb-5 space-y-3">
