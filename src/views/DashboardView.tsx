@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProjects } from "../api/ProjectAPI";
+import Spinner from "../components/Spinner";
 
 export default function DashboardView() {
+   const { data, isLoading } = useQuery({
+      queryKey: ["projects"],
+      queryFn: getAllProjects,
+   });
+
    return (
       <>
          <div className="flex flex-col items-center md:flex-row md:justify-between">
             <div className="flex flex-col items-center">
                <h1 className="text-4xl font-bold">Mis Proyectos</h1>
                <p className="text-lg text-gray-800 dark:text-gray-300">
-                  <span className="text-purple-500">Adminitra</span> tus
+                  <span className="text-purple-500">Administra</span> tus
                   proyectos
                </p>
             </div>
@@ -20,6 +28,15 @@ export default function DashboardView() {
                   Nuevo Projecto
                </Link>
             </nav>
+         </div>
+         <div>
+            {isLoading ? (
+               <Spinner></Spinner>
+            ) : (
+               data && data.map((project) => 
+                  <p>{project.description}</p>
+               )
+            )}
          </div>
       </>
    );

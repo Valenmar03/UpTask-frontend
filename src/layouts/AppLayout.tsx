@@ -58,7 +58,7 @@ export default function AppLayout() {
             <Outlet />
          </section>
 
-         <footer className="py-5">
+         <footer className="py-5 absolute bottom-0 left-1/2">
             <p className="text-center ">
                Valentin Martinez {new Date().getFullYear()}
             </p>
