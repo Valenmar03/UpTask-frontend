@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { ProjectFormData, dashboardProjectSchema } from "../types";
+import { Project, ProjectFormData, dashboardProjectSchema } from "../types";
 
 export async function createProject(fromData: ProjectFormData) {
    try {
@@ -20,6 +20,17 @@ export async function getAllProjects() {
       if(response.success){
          return response.data
       }
+   } catch (error) {
+      if(isAxiosError(error) && error.response){
+         throw new Error(error.response.data.error)
+      }
+   }
+}
+
+export async function getProjectById(id : Project['_id']) {
+   try {
+      const { data } = await api(`/projects/${id}`); // No se pone el get por que es el default en axios
+      return data
    } catch (error) {
       if(isAxiosError(error) && error.response){
          throw new Error(error.response.data.error)

@@ -30,7 +30,7 @@ export default function DashboardView() {
                </Link>
             </nav>
          </div>
-         <div>
+         <div className="w-full h-full">
             {isLoading ? (
                <Spinner></Spinner>
             ) : data && data.length ? (
