@@ -35,7 +35,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                   <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none dark:bg-neutral-800">
                      <Menu.Item>
                         <Link
-                           to={``}
+                           to={`/projects/${project._id}/edit`}
                            className="block px-3 py-1 text-sm leading-6 rounded-t-md text-blue-500 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-600 duration-200"
                         >
                            Editar Proyecto
