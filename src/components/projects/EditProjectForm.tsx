@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
 import { useForm } from "react-hook-form";
 import { ProjectFormData } from "../../types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateProject } from "../../api/ProjectAPI";
+import { toast } from "react-toastify";
 
 
 type EditProjectFormProps = {
@@ -15,6 +16,8 @@ export default function EditProjectForm({data} : EditProjectFormProps) {
 
    const params = useParams();
    const projectId = params.projectId!;
+
+   const navigate = useNavigate()
 
    const initialValues: ProjectFormData = {
       projectName: data.projectName,
@@ -28,13 +31,18 @@ export default function EditProjectForm({data} : EditProjectFormProps) {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
+   const queryClient = useQueryClient();
+
+
    const { mutate } = useMutation({
       mutationFn: updateProject,
-      onError: () => {
-
+      onError: (error) => {
+         toast.error(error.message)
       }, 
       onSuccess: () => {
-         
+         queryClient.invalidateQueries({queryKey: ['editProject', projectId]})// Actualiza las queries para obetener informacion nueva
+         toast.success('Proyecto editado correctamente')
+         navigate('/')
       }
    })
 
