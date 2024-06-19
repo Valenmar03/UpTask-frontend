@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import { Outlet } from "react-router-dom";
 import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
 
 import Logo from "../components/Logo";
 import NavbarMenu from "../components/NavbarMenu";
@@ -35,7 +36,9 @@ export default function AppLayout() {
          <header className="bg-neutral-800 py-5 border-b border-b-neutral-700 px-3">
             <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center">
                <div className="w-32">
-                  <Logo />
+                  <Link to={"/"} className="cursor-pointer">
+                     <Logo />
+                  </Link>
                </div>
 
                <div className="flex justify-end gap-7 items-center">

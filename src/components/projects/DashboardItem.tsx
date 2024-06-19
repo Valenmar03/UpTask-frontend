@@ -25,9 +25,9 @@ export default function DashboardItem({ project }: { project: Project }) {
    })
 
    return (
-      <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between cursor-pointer group">
+      <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
-            <div className="fixed w-screen h-screen bg-opacity-70 inset-0 z-50 bg-black cursor-default">
+            <div className="fixed w-screen h-screen bg-opacity-70 inset-0 z-50 bg-black">
                <div className="bg-gray-100 dark:bg-neutral-800 h-fit w-fit md:w-1/4 text-center text-balance p-5 mt-64 mx-3 md:mx-auto rounded-md">
                   <XMarkIcon
                      className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
@@ -54,9 +54,9 @@ export default function DashboardItem({ project }: { project: Project }) {
             </div>
          )}
          <div className="flex flex-col">
-            <h2 className="text-3xl mb-2 font-semibold">
+            <Link to={`/projects/${project._id}`} className="text-3xl mb-2 font-semibold hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300">
                {project.projectName}
-            </h2>
+            </Link>
             <p className="text-gray-700 dark:text-gray-300">
                {project.clientName}
             </p>
@@ -86,8 +86,16 @@ export default function DashboardItem({ project }: { project: Project }) {
                   <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none dark:bg-neutral-800">
                      <Menu.Item>
                         <Link
+                           to={`/projects/${project._id}`}
+                           className="block px-3 py-1 text-sm leading-6 rounded-t-md dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600 dark:hover:text-white duration-200"
+                        >
+                           Ver Proyecto
+                        </Link>
+                     </Menu.Item>
+                     <Menu.Item>
+                        <Link
                            to={`/projects/${project._id}/edit`}
-                           className="block px-3 py-1 text-sm leading-6 rounded-t-md text-blue-500 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-600 duration-200"
+                           className="block px-3 py-1 text-sm leading-6 text-blue-500 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-600 dark:hover:text-white duration-200"
                         >
                            Editar Proyecto
                         </Link>
@@ -95,7 +103,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                      <Menu.Item>
                         <button
                            type="button"
-                           className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 duration-200"
+                           className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
                            onClick={() => setModal(!modal)}
                         >
                            Eliminar Proyecto
