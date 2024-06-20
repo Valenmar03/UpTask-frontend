@@ -8,53 +8,78 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Project } from "../../types";
 import { deleteProject } from "../../api/ProjectAPI";
 import { toast } from "react-toastify";
+import Modal from "../Modal";
 
 export default function DashboardItem({ project }: { project: Project }) {
    const [modal, setModal] = useState(false);
+   const [animateModal, setAnimateModal] = useState(false);
 
-   const queryClient = useQueryClient()
+   const handleModal = () => {
+      if (modal) {
+         setAnimateModal(false);
+         setTimeout(() => {
+            setModal(false);
+         }, 200);
+         return;
+      }
+      setModal(true);
+      setTimeout(() => {
+         setAnimateModal(true);
+      }, 100);
+   };
+
+   const queryClient = useQueryClient();
    const { mutate } = useMutation({
       mutationFn: deleteProject,
       onError: (error) => {
-         toast.error(error.message)
-      }, onSuccess: () => {
-         setModal(false)
-         toast.success('Proyecto Eliminado correctamente')
-         queryClient.invalidateQueries({queryKey: ['projects']}) // Refrescar datos
-      }
-   })
+         toast.error(error.message);
+      },
+      onSuccess: () => {
+         setModal(false);
+         toast.success("Proyecto Eliminado correctamente");
+         queryClient.invalidateQueries({ queryKey: ["projects"] }); // Refrescar datos
+      },
+   });
 
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
-            <div className="fixed w-screen h-screen bg-opacity-70 inset-0 z-50 bg-black">
-               <div className="bg-gray-100 dark:bg-neutral-800 h-fit w-fit md:w-1/4 text-center text-balance p-5 mt-64 mx-3 md:mx-auto rounded-md">
-                  <XMarkIcon
-                     className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
-                     onClick={() => setModal(false)}
-                  />
-                  <h2 className="text-xl mt-3">¿Seguro que desea eliminar <span className="text-red-500 font-bold">{`${project.projectName}`}</span>?</h2>
-                  <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">Cliente: {`${project.clientName}`}</p>
-                  <div className="flex mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
-                     <button 
-                        className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
-                        onClick={() => mutate(project._id)}
-                     >
-                        Eliminar
-                     </button>
-                     <button 
-                        className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
-                        onClick={() => setModal(false)}
-                     >
-                        Cancelar
-                     </button>
-                  </div>
-
+            <Modal
+               animateModal={animateModal}
+            >
+               <XMarkIcon
+                  className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
+                  onClick={handleModal}
+               />
+               <h2 className="text-xl mt-3">
+                  ¿Seguro que desea eliminar{" "}
+                  <span className="text-red-500 font-bold">{`${project.projectName}`}</span>
+                  ?
+               </h2>
+               <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">
+                  Cliente: {`${project.clientName}`}
+               </p>
+               <div className="flex mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
+                  <button
+                     className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
+                     onClick={() => mutate(project._id)}
+                  >
+                     Eliminar
+                  </button>
+                  <button
+                     className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
+                     onClick={handleModal}
+                  >
+                     Cancelar
+                  </button>
                </div>
-            </div>
+            </Modal>
          )}
          <div className="flex flex-col">
-            <Link to={`/projects/${project._id}`} className="text-3xl mb-2 font-semibold hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300">
+            <Link
+               to={`/projects/${project._id}`}
+               className="text-3xl mb-2 font-semibold hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300"
+            >
                {project.projectName}
             </Link>
             <p className="text-gray-700 dark:text-gray-300">
@@ -104,7 +129,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                         <button
                            type="button"
                            className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
-                           onClick={() => setModal(!modal)}
+                           onClick={handleModal}
                         >
                            Eliminar Proyecto
                         </button>

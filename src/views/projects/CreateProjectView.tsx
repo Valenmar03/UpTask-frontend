@@ -38,7 +38,7 @@ export default function CreateProjectView() {
 
    return (
       <>
-         <div className="flex flex-col items-center md:flex-row md:justify-between">
+         <div className="flex flex-col items-center md:flex-row md:justify-between mx-auto max-w-screen-lg">
             <div className="flex flex-col items-center">
                <h1 className="text-4xl font-bold">Crear Proyecto</h1>
                <p className="text-lg text-gray-800 dark:text-gray-300">
