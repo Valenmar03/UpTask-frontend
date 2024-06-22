@@ -44,34 +44,34 @@ export default function DashboardItem({ project }: { project: Project }) {
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
-            <Modal
-               animateModal={animateModal}
-            >
+            <Modal animateModal={animateModal}>
                <XMarkIcon
                   className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
                   onClick={handleModal}
                />
-               <h2 className="text-xl mt-3">
-                  ¿Seguro que desea eliminar{" "}
-                  <span className="text-red-500 font-bold">{`${project.projectName}`}</span>
-                  ?
-               </h2>
-               <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">
-                  Cliente: {`${project.clientName}`}
-               </p>
-               <div className="flex mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
-                  <button
-                     className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
-                     onClick={() => mutate(project._id)}
-                  >
-                     Eliminar
-                  </button>
-                  <button
-                     className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
-                     onClick={handleModal}
-                  >
-                     Cancelar
-                  </button>
+               <div className="text-center text-balance">
+                  <h2 className="text-xl mt-3">
+                     ¿Seguro que desea eliminar{" "}
+                     <span className="text-red-500 font-bold">{`${project.projectName}`}</span>
+                     ?
+                  </h2>
+                  <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">
+                     Cliente: {`${project.clientName}`}
+                  </p>
+                  <div className="flex mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
+                     <button
+                        className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
+                        onClick={() => mutate(project._id)}
+                     >
+                        Eliminar
+                     </button>
+                     <button
+                        className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
+                        onClick={handleModal}
+                     >
+                        Cancelar
+                     </button>
+                  </div>
                </div>
             </Modal>
          )}

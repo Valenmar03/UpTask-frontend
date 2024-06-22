@@ -16,8 +16,8 @@ export default function Modal({children, animateModal} : ModalProps) {
                   : "transition-all duration-300 ease-in opacity-0"
             }
          >
-            <div className="bg-gray-100 dark:bg-neutral-800 h-fit w-fit md:w-1/4 text-center text-balance p-5 mt-64 mx-3 md:mx-auto rounded-md transition-all ease-in duration-300">
-                {children}
+            <div className="bg-gray-100 dark:bg-neutral-800 h-fit w-fit md:w-1/4 p-5 mt-64 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto">
+               {children}
             </div>
          </div>
       </div>
