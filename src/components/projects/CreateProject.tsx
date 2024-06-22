@@ -1,18 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import ProjectForm from "../../components/projects/ProjectForm";
 import { ProjectFormData } from "../../types";
 import { createProject } from "../../api/ProjectAPI";
 
-export default function CreateProjectView() {
-   const navigate = useNavigate();
+export default function CreateProject() {
    const initialValues: ProjectFormData = {
       projectName: "",
       clientName: "",
       description: "",
    };
+
+   const queryClient = useQueryClient()
+   const navigate = useNavigate()
 
    const {
       register,
@@ -30,7 +32,8 @@ export default function CreateProjectView() {
             toast.success("Proyecto creado correctamente", {
                autoClose: 3000,
             });
-         navigate("/");
+         queryClient.invalidateQueries({queryKey: ['projects']})
+         navigate('', {replace: true})
       },
    });
 
@@ -38,27 +41,15 @@ export default function CreateProjectView() {
 
    return (
       <>
-         <div className="flex flex-col items-center md:flex-row md:justify-between mx-auto max-w-screen-lg">
-            <div className="flex flex-col items-center">
-               <h1 className="text-4xl font-bold">Crear Proyecto</h1>
-               <p className="text-lg text-gray-800 dark:text-gray-300">
-                  <span className="text-purple-500">Crea</span> un nuevo
-                  proyecto
-               </p>
-            </div>
-
-            <nav className="my-5">
-               <Link
-                  to="/"
-                  className="text-white bg-purple-500 px-8 py-3 rounded-md hover:bg-purple-600 duration-200 text-xl"
-               >
-                  Mis Proyectos
-               </Link>
-            </nav>
-         </div>
-
+      <h2 className="text-4xl font-bold">
+            Nuevo <span className="text-purple-600">Proyecto</span>
+         </h2>
+         <p className="text-sm my-3">
+            Agregue un 
+            <span className="text-purple-500"> Proyecto</span>
+         </p>
          <form
-            className="mt-10 bg-white shadow-xl dark:bg-neutral-700 dark:shadow-neutral-900 p-10 rounded-md max-w-3xl mx-auto"
+            className=" my-5 px-10 rounded-md max-w-3xl mx-auto"
             onSubmit={handleSubmit(handleForm)}
             noValidate
          >
@@ -72,3 +63,4 @@ export default function CreateProjectView() {
       </>
    );
 }
+

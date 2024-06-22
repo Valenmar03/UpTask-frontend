@@ -1,10 +1,40 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../api/ProjectAPI";
 import Spinner from "../components/Spinner";
 import DashboardItem from "../components/projects/DashboardItem";
+import Modal from "../components/Modal";
+import { XMarkIcon } from "@heroicons/react/20/solid";
+import CreateProject from "../components/projects/CreateProject";
 
 export default function DashboardView() {
+
+   const [animateModal, setAnimateModal] = useState(false);
+
+   const location = useLocation()
+   const navigate = useNavigate()
+   const queryParams = new URLSearchParams(location.search)
+   const modalProject = queryParams.get('newProject')
+   const show = modalProject ? true : false 
+   
+
+   useEffect(() => {
+      if(show){
+         setTimeout(() => {
+            setAnimateModal(true);
+         }, 100);
+      }
+   }, [show])
+
+   const closeModal = () => {   
+      setAnimateModal(false);
+      setTimeout(() => {
+         navigate('', {replace: true})
+      }, 300);
+   }
+
+
    const { data, isLoading } = useQuery({
       queryKey: ["projects"],
       queryFn: getAllProjects,
@@ -12,6 +42,18 @@ export default function DashboardView() {
 
    return (
       <>
+      {
+         show && 
+            <Modal
+            animateModal={animateModal}
+            >
+                <XMarkIcon
+                  className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
+                  onClick={closeModal}
+               />
+               <CreateProject/>
+            </Modal>
+      }
          <div className="flex flex-col items-center md:flex-row md:justify-between">
             <div className="flex flex-col items-center">
                <h1 className="text-4xl font-bold">Mis Proyectos</h1>
@@ -22,12 +64,12 @@ export default function DashboardView() {
             </div>
 
             <nav className="my-5">
-               <Link
-                  to="/projects/create"
+               <button
+                  onClick={() => navigate('?newProject=true')}
                   className="text-white bg-purple-500 px-8 py-3 rounded-md hover:bg-purple-600 duration-200 text-xl"
                >
                   Nuevo Projecto
-               </Link>
+               </button>
             </nav>
          </div>
          <div className="w-full h-full">

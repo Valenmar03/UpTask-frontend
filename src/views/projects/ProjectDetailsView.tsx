@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectById } from "../../api/ProjectAPI";
@@ -16,8 +16,12 @@ import AddTask from "../../components/tasks/AddTask";
 
 export default function ProjectDetailsView() {
 
-   const [modal, setModal] = useState(false);
    const [animateModal, setAnimateModal] = useState(false);
+
+   const location = useLocation()
+   const queryParams = new URLSearchParams(location.search)
+   const modalProject = queryParams.get('newProject')
+   const show = modalProject ? true : false 
 
    const navigate = useNavigate()
 
@@ -30,24 +34,23 @@ export default function ProjectDetailsView() {
       retry: false,
    });
 
-   const closeModal = () => {   
-      if (modal) {
-         setAnimateModal(false);
+   useEffect(() => {
+      if(show){
          setTimeout(() => {
-            setModal(false);
-         }, 200);
-         return;
+            setAnimateModal(true);
+         }, 100);
+         return
       }
-   }
 
-   const handleClick = () => {
-      navigate('?newTask=true')
+   }, [show])
 
-      setModal(true);
+   const closeModal = () => {   
+      setAnimateModal(false);
       setTimeout(() => {
-         setAnimateModal(true);
-      }, 100);
-   }
+         navigate('', {replace: true})
+      }, 300);
+}
+
 
    if (isLoading) return <Spinner></Spinner>;
    if (isError) return <Navigate to={"/404"} />;
@@ -55,7 +58,7 @@ export default function ProjectDetailsView() {
       return (
          <>
          {
-            modal && 
+            show && 
             <Modal
                animateModal={animateModal}
             >
@@ -93,7 +96,7 @@ export default function ProjectDetailsView() {
 
                <button 
                   className="text-white bg-purple-500 py-2 px-8 md:p-2 rounded-full hover:bg-purple-600 duration-200 text-xl group relative flex items-center"
-                  onClick={handleClick} 
+                  onClick={() => navigate('?newProject=true')} 
                >
                   <PlusIcon className=" size-7 duration-200" />
                   <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
