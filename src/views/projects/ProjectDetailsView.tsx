@@ -68,11 +68,11 @@ export default function ProjectDetailsView() {
             <div className="flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:justify-between">
                <div className="flex md:justify-between w-full items-center">
                   <Link to="/">
-                     <ChevronLeftIcon className="size-10 text-purple-500 hover:scale-110 hover:text-purple-600 duration-150" />
+                     <ChevronLeftIcon className="size-10 hidden md:flex text-purple-500 hover:scale-110 hover:text-purple-600 duration-150" />
                   </Link>
                   <div className="flex flex-col items-center text-center md:items-start mx-auto">
-                     <div className="flex items-center gap-2">
-                        <h1 className="text-4xl font-bold">
+                     <div className="flex flex-col md:flex-row items-center gap-2">
+                        <h1 className="text-3xl md:text-4xl font-bold">
                            {data.projectName}
                         </h1>
                         <Link to={`/projects/${data._id}/edit`}

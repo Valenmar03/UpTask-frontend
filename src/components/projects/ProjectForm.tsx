@@ -21,18 +21,20 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
 
    return (
       <>
+         {!allFieldsFill && (
+            <ErrorMessage>Todos los campos son Obligatorios</ErrorMessage>
+         )}
          <div className="mb-5 space-y-3">
-            {!allFieldsFill && (
-               <ErrorMessage>Todos los campos son Obligatorios</ErrorMessage>
-            )}
             <label htmlFor="projectName" className="text-lg">
                Nombre del Proyecto
             </label>
             <input
                id="projectName"
-               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black ${Object.keys(
-                errors
-             ).includes("projectName") && ' border-l-4 border-l-red-500'}`}
+               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black 
+                  ${
+                     Object.keys(errors).includes("projectName") &&
+                     " border-l-4 border-l-red-500"
+                  }`}
                type="text"
                placeholder="Nombre del Proyecto"
                {...register("projectName", {
@@ -47,9 +49,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
             </label>
             <input
                id="clientName"
-               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black ${Object.keys(
-                errors
-             ).includes("clientName") && ' border-l-4 border-l-red-500'}`}
+               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black ${
+                  Object.keys(errors).includes("clientName") &&
+                  " border-l-4 border-l-red-500"
+               }`}
                type="text"
                placeholder="Nombre del Cliente"
                {...register("clientName", {
@@ -64,9 +67,10 @@ export default function ProjectForm({ register, errors }: ProjectFormProps) {
             </label>
             <textarea
                id="description"
-               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black max-h-36 min-h-24 ${Object.keys(
-                  errors
-               ).includes("description") && ' border-l-4 border-l-red-500'}`}
+               className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black max-h-36 min-h-24 ${
+                  Object.keys(errors).includes("description") &&
+                  " border-l-4 border-l-red-500"
+               }`}
                placeholder="Descripción del Proyecto"
                {...register("description", {
                   required: "Una descripción del proyecto es obligatoria",

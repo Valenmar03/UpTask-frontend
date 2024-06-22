@@ -41,10 +41,10 @@ export default function CreateProject() {
 
    return (
       <>
-         <h2 className="text-4xl font-bold">
+         <h2 className="text-4xl font-bold px-10">
             Nuevo <span className="text-purple-600">Proyecto</span>
          </h2>
-         <p className="my-3">
+         <p className="my-3 px-10">
             Agregue un
             <span className="text-purple-500"> Proyecto</span>
          </p>
