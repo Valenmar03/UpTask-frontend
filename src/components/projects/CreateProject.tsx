@@ -13,8 +13,8 @@ export default function CreateProject() {
       description: "",
    };
 
-   const queryClient = useQueryClient()
-   const navigate = useNavigate()
+   const queryClient = useQueryClient();
+   const navigate = useNavigate();
 
    const {
       register,
@@ -25,15 +25,15 @@ export default function CreateProject() {
    const mutation = useMutation({
       mutationFn: createProject,
       onError: (error) => {
-         toast.error(error.message)
+         toast.error(error.message);
       },
       onSuccess: (response) => {
          response.status === "success" &&
             toast.success("Proyecto creado correctamente", {
                autoClose: 3000,
             });
-         queryClient.invalidateQueries({queryKey: ['projects']})
-         navigate('', {replace: true})
+         queryClient.invalidateQueries({ queryKey: ["projects"] });
+         navigate("", { replace: true });
       },
    });
 
@@ -41,11 +41,11 @@ export default function CreateProject() {
 
    return (
       <>
-      <h2 className="text-4xl font-bold">
+         <h2 className="text-4xl font-bold">
             Nuevo <span className="text-purple-600">Proyecto</span>
          </h2>
-         <p className="text-sm my-3">
-            Agregue un 
+         <p className="my-3">
+            Agregue un
             <span className="text-purple-500"> Proyecto</span>
          </p>
          <form
@@ -63,4 +63,3 @@ export default function CreateProject() {
       </>
    );
 }
-

@@ -7,7 +7,7 @@ import {
    PencilSquareIcon,
    ChevronLeftIcon,
    PlusIcon,
-   XMarkIcon
+   XMarkIcon,
 } from "@heroicons/react/20/solid";
 
 import Spinner from "../../components/Spinner";
@@ -15,15 +15,14 @@ import Modal from "../../components/Modal";
 import AddTask from "../../components/tasks/AddTask";
 
 export default function ProjectDetailsView() {
-
    const [animateModal, setAnimateModal] = useState(false);
 
-   const location = useLocation()
-   const queryParams = new URLSearchParams(location.search)
-   const modalProject = queryParams.get('newProject')
-   const show = modalProject ? true : false 
+   const location = useLocation();
+   const queryParams = new URLSearchParams(location.search);
+   const modalProject = queryParams.get("newProject");
+   const show = modalProject ? true : false;
 
-   const navigate = useNavigate()
+   const navigate = useNavigate();
 
    const params = useParams();
    const projectId = params.projectId!;
@@ -35,42 +34,37 @@ export default function ProjectDetailsView() {
    });
 
    useEffect(() => {
-      if(show){
+      if (show) {
          setTimeout(() => {
             setAnimateModal(true);
          }, 100);
-         return
+         return;
       }
+   }, [show]);
 
-   }, [show])
-
-   const closeModal = () => {   
+   const closeModal = () => {
       setAnimateModal(false);
       setTimeout(() => {
-         navigate('', {replace: true})
+         navigate("", { replace: true });
       }, 300);
-}
-
+   };
 
    if (isLoading) return <Spinner></Spinner>;
    if (isError) return <Navigate to={"/404"} />;
    if (data)
       return (
          <>
-         {
-            show && 
-            <Modal
-               animateModal={animateModal}
-            >
-               <XMarkIcon
-                  className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
-                  onClick={closeModal}
-               />
-               <AddTask
-                  data={data}
-               />
-            </Modal>
-         }
+            {show && (
+               <Modal animateModal={animateModal}>
+                  <div className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-1/3 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto">
+                     <XMarkIcon
+                        className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
+                        onClick={closeModal}
+                     />
+                     <AddTask data={data} />
+                  </div>
+               </Modal>
+            )}
             <div className="flex flex-col items-center space-y-10 md:space-y-0 md:flex-row md:justify-between">
                <div className="flex md:justify-between w-full items-center">
                   <Link to="/">
@@ -81,8 +75,19 @@ export default function ProjectDetailsView() {
                         <h1 className="text-4xl font-bold">
                            {data.projectName}
                         </h1>
-                        <Link to={`/projects/${data._id}/edit`}>
-                           <PencilSquareIcon className="size-6 cursor-pointer hover:scale-125 duration-200 text-purple-500" />
+                        <Link to={`/projects/${data._id}/edit`}
+                           className="relative group"
+                        >
+                           <PencilSquareIcon className="size-6 cursor-pointer hover:scale-125 duration-200 text-purple-500 md:ml-2" />
+                           <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
+                              <div className="ease-in-out duration-300 translate-x-4 pointer-events-none transition-all group-hover:translate-x-6 absolute left-1/2 z-50 flex -translate-y-full flex-col items-center rounded-sm text-center text-sm text-slate-300 before:top-[50%]">
+                                 <div className="rounded-md bg-black py-2 px-3">
+                                    <p className="whitespace-nowrap">
+                                       Editar Proyecto
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
                         </Link>
                      </div>
                      <p className="text-lg text-gray-800 dark:text-gray-300 md:ml-24">
@@ -94,9 +99,9 @@ export default function ProjectDetailsView() {
                   </div>
                </div>
 
-               <button 
+               <button
                   className="text-white bg-purple-500 py-2 px-8 md:p-2 rounded-full hover:bg-purple-600 duration-200 text-xl group relative flex items-center"
-                  onClick={() => navigate('?newProject=true')} 
+                  onClick={() => navigate("?newProject=true")}
                >
                   <PlusIcon className=" size-7 duration-200" />
                   <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
