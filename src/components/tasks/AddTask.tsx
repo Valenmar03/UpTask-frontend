@@ -1,7 +1,11 @@
-import { Project } from "../../types";
-import TaskForm from "./TaskForm";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { TaskFormData } from "../../types";
+import TaskForm from "./TaskForm";
+import { Project } from "../../types";
+import { createTask } from "../../api/TaskAPI";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 export default function AddTask({ data }: { data: Project }) {
 
@@ -12,12 +16,35 @@ export default function AddTask({ data }: { data: Project }) {
    const {
       register,
       handleSubmit,
+      reset,
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = (data: TaskFormData) => {
-      console.log(data)
+   const params = useParams()
+   const projectId = params.projectId!
+   
+
+   const { mutate } = useMutation({
+      mutationFn: createTask,
+      onError: () => {
+         toast.error("Error creando tarea")
+      }, 
+      onSuccess: () => {
+         toast.success('Tarea creada correctamente', {
+            autoClose: 3000 
+         })
+         reset()
+      }
+   })
+
+   const handleForm = (formData: TaskFormData) => {
+      const data = {
+         formData, 
+         projectId
+      }
+      mutate(data)
    }
+
    return (
       <>
          <h2 className="text-4xl font-bold px-10">
