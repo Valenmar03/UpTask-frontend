@@ -10,6 +10,11 @@ type GroupedTasks = {
    [key: string]: Task[];
 };
 
+type statusTranslations = {
+   name: string;
+   color: string
+}
+
 const initialStatusGroups: GroupedTasks = {
    pending: [],
    onHold: [],
@@ -17,6 +22,29 @@ const initialStatusGroups: GroupedTasks = {
    underReview: [],
    completed: [],
 };
+
+const statusTranslations : {[key: string] : statusTranslations} = {
+   pending: {
+      name: "Pendiente",
+      color: "border-b-gray-400"
+   },
+   onHold: {
+      name: "En Espera",
+      color: "border-b-red-500"
+   },
+   inProgress: {
+      name: "En Progreso",
+      color: "border-b-blue-500"
+   },
+   underReview: {
+      name: "En Revision",
+      color: "border-b-orange-400"
+   },
+   completed:{
+      name: "Completada",
+      color: "border-b-green-500"
+   }
+}
 
 export default function TaskList({ tasks }: TaskListProps) {
    const navigate = useNavigate();
@@ -33,8 +61,8 @@ export default function TaskList({ tasks }: TaskListProps) {
             <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
                {Object.entries(groupedTasks).map(([status, tasks]) => (
                   <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
-                     <h3 key={`${status}Title`} className="mt-10 text-center text-xl capitalize border-b-4 pb-2 w-[75%] mx-auto">
-                        {status}
+                     <h3 key={`${status}Title`} className={`mt-10 text-center text-xl capitalize border-b-4 ${statusTranslations[status].color} pb-2 w-[75%] mx-auto`}>
+                        {statusTranslations[status].name}
                      </h3>
                      <div
                         key={`${status}List`}
