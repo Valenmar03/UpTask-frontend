@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { TaskFormData } from "../../types";
 import TaskForm from "./TaskForm";
@@ -22,6 +22,7 @@ export default function AddTask({ data }: { data: Project }) {
 
    const params = useParams()
    const projectId = params.projectId!
+   const queryClient = useQueryClient()
    
 
    const { mutate } = useMutation({
@@ -34,6 +35,7 @@ export default function AddTask({ data }: { data: Project }) {
             autoClose: 3000 
          })
          reset()
+         queryClient.invalidateQueries({ queryKey: ["editProject", projectId]})
       }
    })
 

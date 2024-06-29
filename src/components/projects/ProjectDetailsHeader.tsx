@@ -45,7 +45,7 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
 
          <button
             className="text-white bg-purple-500 py-2 px-8 md:p-2 rounded-full hover:bg-purple-600 duration-200 text-xl group relative flex items-center"
-            onClick={() => navigate("?newProject=true")}
+            onClick={() => navigate("?newTask=true")}
          >
             <PlusIcon className=" size-7 duration-200" />
             <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">

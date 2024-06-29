@@ -6,7 +6,7 @@ type TypeCardProps = {
 
 export default function TaskCard({task} : TypeCardProps) {
   return (
-    <li className="p-2 bg-gray-100 dark:bg-neutral-800">
+    <li className="py-3 px-2 bg-gray-100 dark:bg-neutral-800">
       <div>
         <button
           className="text-lg hover:translate-x-1 hover:scale-105 duration-300"
