@@ -17,7 +17,7 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
             </Link>
             <div className="flex flex-col items-center text-center md:items-start mx-auto">
                <div className="flex flex-col md:flex-row items-center gap-2">
-                  <h1 className="text-3xl md:text-4xl font-bold">
+                  <h1 className="text-3xl md:text-4xl font-bold text-center">
                      {data.projectName}
                   </h1>
                   <Link
@@ -36,7 +36,7 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
                      </div>
                   </Link>
                </div>
-               <p className="text-lg text-gray-800 dark:text-gray-300 md:ml-24">
+               <p className="text-lg text-gray-800 dark:text-gray-300 mx-auto">
                   Proyecto de{" "}
                   <span className="text-purple-500">{data.clientName}</span>
                </p>

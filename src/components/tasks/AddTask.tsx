@@ -67,7 +67,7 @@ export default function AddTask({ data }: { data: Project }) {
             />
             <input
                type="submit"
-               value="Crear Proyecto"
+               value="Añadir Tarea"
                className="text-white bg-purple-500 mx-auto block px-8 py-3 rounded-md hover:bg-purple-600 duration-200 text-lg cursor-pointer"
             />
          </form>
