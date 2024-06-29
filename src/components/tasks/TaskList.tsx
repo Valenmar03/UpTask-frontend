@@ -12,8 +12,8 @@ type GroupedTasks = {
 
 type statusTranslations = {
    name: string;
-   color: string
-}
+   color: string;
+};
 
 const initialStatusGroups: GroupedTasks = {
    pending: [],
@@ -23,28 +23,28 @@ const initialStatusGroups: GroupedTasks = {
    completed: [],
 };
 
-const statusTranslations : {[key: string] : statusTranslations} = {
+const statusTranslations: { [key: string]: statusTranslations } = {
    pending: {
       name: "Pendiente",
-      color: "border-b-gray-400"
+      color: "border-b-gray-400",
    },
    onHold: {
       name: "En Espera",
-      color: "border-b-red-500"
+      color: "border-b-red-500",
    },
    inProgress: {
       name: "En Progreso",
-      color: "border-b-blue-500"
+      color: "border-b-blue-500",
    },
    underReview: {
       name: "En Revision",
-      color: "border-b-orange-400"
+      color: "border-b-orange-400",
    },
-   completed:{
+   completed: {
       name: "Completada",
-      color: "border-b-green-500"
-   }
-}
+      color: "border-b-green-500",
+   },
+};
 
 export default function TaskList({ tasks }: TaskListProps) {
    const navigate = useNavigate();
@@ -60,19 +60,31 @@ export default function TaskList({ tasks }: TaskListProps) {
          {tasks.length ? (
             <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
                {Object.entries(groupedTasks).map(([status, tasks]) => (
-                  <div key={status} className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5">
-                     <h3 key={`${status}Title`} className={`mt-10 text-center text-xl capitalize border-b-4 ${statusTranslations[status].color} pb-2 w-[75%] mx-auto`}>
+                  <div
+                     key={status}
+                     className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5"
+                  >
+                     <h3
+                        key={`${status}Title`}
+                        className={`mt-10 text-center text-xl capitalize border-b-4 ${statusTranslations[status].color} pb-2 w-[75%] mx-auto`}
+                     >
                         {statusTranslations[status].name}
                      </h3>
                      <div
                         key={`${status}List`}
                         className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
                      >
-                        <ul className="divide-y-4 divide-gray-300 dark:divide-neutral-900">
-                           {tasks.map((task) => (
-                              <TaskCard key={task._id} task={task} />
-                           ))}
-                        </ul>
+                        {groupedTasks[status].length ? (
+                           <ul className="divide-y-4 divide-gray-300 dark:divide-neutral-900">
+                              {tasks.map((task) => (
+                                 <TaskCard key={task._id} task={task} />
+                              ))}
+                           </ul>
+                        ) : (
+                           <p className="text-center mt-5 text-lg">
+                              No hay Tareas
+                           </p>
+                        )}
                      </div>
                   </div>
                ))}
