@@ -81,8 +81,8 @@ export default function TaskList({ tasks }: TaskListProps) {
                               ))}
                            </ul>
                         ) : (
-                           <p className="text-center mt-5 text-lg">
-                              No hay Tareas
+                           <p className="text-center mt-5 text">
+                              No hay Tareas 
                            </p>
                         )}
                      </div>
