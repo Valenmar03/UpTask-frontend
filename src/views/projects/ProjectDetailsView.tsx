@@ -12,14 +12,17 @@ import Modal from "../../components/Modal";
 import AddTask from "../../components/tasks/AddTask";
 import ProjectDetailsHeader from "../../components/projects/ProjectDetailsHeader";
 import TaskList from "../../components/tasks/TaskList";
+import DetailsTaskModal from "../../components/tasks/DetailsTaskModal";
 
 export default function ProjectDetailsView() {
    const [animateModal, setAnimateModal] = useState(false);
 
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
-   const modalProject = queryParams.get("newTask");
-   const show = modalProject ? true : false;
+   const modalCreateTask = queryParams.get("newTask");
+   const modalTaskDetails = queryParams.get("taskId")
+
+   const show = modalCreateTask ? modalCreateTask : modalTaskDetails;
 
    const navigate = useNavigate();
 
@@ -60,14 +63,19 @@ export default function ProjectDetailsView() {
                         className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150 mb-3"
                         onClick={closeModal}
                      />
-                     <AddTask data={data} />
+                     {
+                        show === "true" ? (
+                           <AddTask data={data} />
+                        ) : (
+                           <DetailsTaskModal/>
+                        )
+                     }
                   </div>
                </Modal>
             )}
             <ProjectDetailsHeader
                data={data}
             />
-
             <TaskList
                tasks={data.tasks}
             />
