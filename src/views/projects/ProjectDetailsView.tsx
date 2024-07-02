@@ -3,9 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectById } from "../../api/ProjectAPI";
-import {
-   XMarkIcon,
-} from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/Modal";
@@ -20,7 +18,7 @@ export default function ProjectDetailsView() {
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
    const modalCreateTask = queryParams.get("newTask");
-   const modalTaskDetails = queryParams.get("taskId")
+   const modalTaskDetails = queryParams.get("taskId");
 
    const show = modalCreateTask ? modalCreateTask : modalTaskDetails;
 
@@ -64,8 +62,8 @@ export default function ProjectDetailsView() {
                         onClick={closeModal}
                      />
                      {
-                        show === "true" ? (
-                           <AddTask data={data} />
+                        modalCreateTask ? (
+                           <AddTask data={data}/>
                         ) : (
                            <DetailsTaskModal/>
                         )
@@ -73,12 +71,8 @@ export default function ProjectDetailsView() {
                   </div>
                </Modal>
             )}
-            <ProjectDetailsHeader
-               data={data}
-            />
-            <TaskList
-               tasks={data.tasks}
-            />
+            <ProjectDetailsHeader data={data} />
+            <TaskList tasks={data.tasks} />
          </>
       );
 }

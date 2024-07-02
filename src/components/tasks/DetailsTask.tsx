@@ -1,10 +1,11 @@
 import { Task } from "../../types"
 
 export default function DetailsTask({ data } : { data: Task }) {
+
   return (
     <div>
       <h2>
-        Hola
+        {data.name}
       </h2>
     </div>
   )

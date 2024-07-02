@@ -23,7 +23,7 @@ export async function createTask({formData, projectId} : Pick<TaskAPI, 'formData
 export async function getTaskById({ taskId, projectId } : Pick<TaskAPI, 'taskId' | 'projectId'>){
     try {
         const url = `/projects/${projectId}/tasks/${taskId}`
-        const data = await api(url)
+        const { data } = await api(url)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
