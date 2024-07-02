@@ -98,7 +98,7 @@ export default function TaskList({ tasks }: TaskListProps) {
                   Crea una pulsando{" "}
                   <span
                      className="text-purple-600 cursor-pointer hover:text-purple-500"
-                     onClick={() => navigate("?newProject=true")}
+                     onClick={() => navigate("?newTask=true")}
                   >
                      Aquí
                   </span>
