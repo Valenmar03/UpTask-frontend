@@ -14,18 +14,18 @@ export default function DashboardItem({ project }: { project: Project }) {
    const [modal, setModal] = useState(false);
    const [animateModal, setAnimateModal] = useState(false);
 
-   const handleModal = () => {
-      if (modal) {
-         setAnimateModal(false);
-         setTimeout(() => {
-            setModal(false);
-         }, 200);
-         return;
-      }
+   const openModal = () => {
       setModal(true);
       setTimeout(() => {
          setAnimateModal(true);
       }, 100);
+   };
+
+   const closeModal = () => {
+      setAnimateModal(false);
+         setTimeout(() => {
+            setModal(false);
+      }, 200);
    };
 
    const queryClient = useQueryClient();
@@ -44,11 +44,14 @@ export default function DashboardItem({ project }: { project: Project }) {
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
-            <Modal animateModal={animateModal}>
-               <div className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-1/4 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto">
+            <Modal animateModal={animateModal} closeModal={closeModal}>
+               <div 
+                  className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-1/4 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+                  onClick={e => e.stopPropagation()}
+               >
                   <XMarkIcon
                      className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150"
-                     onClick={handleModal}
+                     onClick={closeModal}
                   />
                   <div className="text-center text-balance w-full mx-auto">
                      <h2 className="text-xl mt-3">
@@ -68,7 +71,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                         </button>
                         <button
                            className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
-                           onClick={handleModal}
+                           onClick={closeModal}
                         >
                            Cancelar
                         </button>
@@ -131,7 +134,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                         <button
                            type="button"
                            className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
-                           onClick={handleModal}
+                           onClick={openModal}
                         >
                            Eliminar Proyecto
                         </button>

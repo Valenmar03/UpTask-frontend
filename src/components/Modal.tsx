@@ -3,11 +3,15 @@ import React from "react";
 type ModalProps = {
    children: React.ReactNode;
    animateModal: boolean;
+   closeModal: () => void
 };
 
-export default function Modal({ children, animateModal }: ModalProps) {
+export default function Modal({ children, animateModal, closeModal }: ModalProps) {
    return (
-      <div className="fixed w-screen h-screen bg-opacity-70 inset-0 z-50 bg-black">
+      <div 
+         className="fixed w-screen h-screen bg-opacity-70 inset-0 z-50 bg-black"
+         onClick={closeModal}
+      >
          <div
             className={
                animateModal

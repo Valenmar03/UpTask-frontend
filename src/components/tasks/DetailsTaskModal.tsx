@@ -17,7 +17,7 @@ export default function DetailsTaskModal() {
    };
 
    const { data, isLoading, isError } = useQuery({
-      queryKey: ["taskDetail", taskId],
+      queryKey: ["task", taskId],
       queryFn: () => getTaskById(reqData),
       retry: false,
    });

@@ -40,8 +40,11 @@ export default function DashboardView() {
    return (
       <>
          {show && (
-            <Modal animateModal={animateModal}>
-               <div className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto">
+            <Modal animateModal={animateModal} closeModal={closeModal} >
+               <div 
+                  className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+                  onClick={e => e.stopPropagation()}   
+               >
                   <XMarkIcon
                      className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150 mb-3"
                      onClick={closeModal}
