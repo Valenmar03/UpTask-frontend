@@ -2,7 +2,6 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Project } from "../../types";
