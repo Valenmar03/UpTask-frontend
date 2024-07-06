@@ -3,29 +3,35 @@ import { PencilIcon } from "@heroicons/react/20/solid";
 
 type statusTranslations = {
   name: string;
-  color: string;
+  bgColor: string;
+  textColor: string;
 };
 
 const statusTranslations: { [key: string]: statusTranslations } = {
   pending: {
      name: "Pendiente",
-     color: "border-b-gray-400",
+     bgColor: "bg-neutral-700",
+     textColor: "text-neutral-200",
   },
   onHold: {
      name: "En Espera",
-     color: "border-b-red-500",
+     bgColor: "bg-red-700",
+     textColor: "text-red-400",
   },
   inProgress: {
      name: "En Progreso",
-     color: "border-b-blue-500",
+     bgColor: "bg-blue-600",
+     textColor: "text-blue-400",
   },
   underReview: {
      name: "En Revision",
-     color: "border-b-orange-400",
+     bgColor: "bg-orange-500",
+     textColor: "text-orange-300",
   },
   completed: {
      name: "Completada",
-     color: "border-b-green-500",
+     bgColor: "bg-green-600",
+     textColor: "text-green-400",
   },
 };
 
@@ -33,14 +39,14 @@ export default function DetailsTask({ data, status }: { data: Task, status: stri
 
    return (
       <>
-         <h2 className="text-3xl font-bold px-10 group w-2/3 flex items-center">
+         <h2 className="text-4xl font-bold px-10 group flex flex-col sm:flex-row sm:items-center mb-1">
           {data.name}
           <PencilIcon
-            className="size-6 invisible group-hover:visible ml-2 text-purple-600 cursor-pointer"
+            className="size-6 sm:invisible group-hover:visible ml-2 text-purple-600 cursor-pointer"
           />
          </h2>
-         <p className="my-3 px-10">
-            <span className="text-purple-500">{" " + status}</span>
+         <p className={`my-3 ml-10 ${statusTranslations[status].bgColor} inline bg-opacity-60 opacity-80 py-1 px-2 rounded-xl text-xs`}>
+            <span className={`${statusTranslations[status].textColor}`}>{" " + statusTranslations[status].name}</span>
          </p>
          <div className="px-10 mt-10">
           <h3 className="text-xl group flex items-center">
