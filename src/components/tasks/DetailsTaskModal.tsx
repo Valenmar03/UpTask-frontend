@@ -4,7 +4,7 @@ import { getTaskById } from "../../api/TaskAPI";
 import DetailsTask from "./DetailsTask";
 import Spinner from "../Spinner";
 
-export default function DetailsTaskModal() {
+export default function DetailsTaskModal({ statusSelectedTask } : {statusSelectedTask: string}) {
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
    const taskId = queryParams.get("taskId")!;
@@ -21,13 +21,11 @@ export default function DetailsTaskModal() {
       queryFn: () => getTaskById(reqData),
       retry: false,
    });
-   console.log(isError)
 
    if (isError) return <Navigate to={"/404"} />;
    if(isLoading) return <Spinner></Spinner>
    if (data) 
-    console.log(data)
         return (
-            <DetailsTask data={data} />
+            <DetailsTask data={data} status={statusSelectedTask}/>
         );
 }

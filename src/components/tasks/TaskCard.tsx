@@ -3,9 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 type TypeCardProps = {
    task: Task;
+   setStatusSelectedTask: React.Dispatch<React.SetStateAction<string>>;
+   status: string;
 };
 
-export default function TaskCard({ task }: TypeCardProps) {
+export default function TaskCard({
+   task,
+   setStatusSelectedTask,
+   status,
+}: TypeCardProps) {
    const navigate = useNavigate();
    const location = useLocation();
 
@@ -14,9 +20,10 @@ export default function TaskCard({ task }: TypeCardProps) {
          <div className="whitespace-nowrap overflow-hidden text-ellipsis">
             <button
                className="text-lg hover:translate-x-1 hover:scale-105 duration-300"
-               onClick={() =>
-                  navigate(location.pathname + `?taskId=${task._id}`)
-               }
+               onClick={() => {
+                  navigate(location.pathname + `?taskId=${task._id}`);
+                  setStatusSelectedTask(status);
+               }}
             >
                {task.name}
             </button>

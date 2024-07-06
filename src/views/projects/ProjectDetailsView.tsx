@@ -14,6 +14,7 @@ import DetailsTaskModal from "../../components/tasks/DetailsTaskModal";
 
 export default function ProjectDetailsView() {
    const [animateModal, setAnimateModal] = useState(false);
+   const [statusSelectedTask, setStatusSelectedTask] = useState("");
 
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
@@ -68,14 +69,16 @@ export default function ProjectDetailsView() {
                         modalCreateTask ? (
                            <AddTask data={data}/>
                         ) : (
-                           <DetailsTaskModal/>
+                           <DetailsTaskModal
+                              statusSelectedTask={statusSelectedTask}
+                           />
                         )
                      }
                   </div>
                </Modal>
             )}
             <ProjectDetailsHeader data={data} />
-            <TaskList tasks={data.tasks} />
+            <TaskList tasks={data.tasks} setStatusSelectedTask={setStatusSelectedTask}/>
          </>
       );
 }
