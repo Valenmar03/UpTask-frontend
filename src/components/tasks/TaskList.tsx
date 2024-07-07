@@ -26,7 +26,7 @@ const initialStatusGroups: GroupedTasks = {
 const statusTranslations: { [key: string]: statusTranslations } = {
    pending: {
       name: "Pendiente",
-      color: "border-b-gray-400",
+      color: "border-b-indigo-400",
    },
    onHold: {
       name: "En Espera",

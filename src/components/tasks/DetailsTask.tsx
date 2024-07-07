@@ -2,40 +2,7 @@ import { useState } from "react";
 import { Task } from "../../types";
 import { PencilIcon } from "@heroicons/react/20/solid";
 import EditTask from "./EditTask";
-
-type statusTranslations = {
-   name: string;
-   bgColor: string;
-   textColor: string;
-};
-
-const statusTranslations: { [key: string]: statusTranslations } = {
-   pending: {
-      name: "Pendiente",
-      bgColor: "bg-neutral-700",
-      textColor: "text-neutral-200",
-   },
-   onHold: {
-      name: "En Espera",
-      bgColor: "bg-red-700",
-      textColor: "text-red-400",
-   },
-   inProgress: {
-      name: "En Progreso",
-      bgColor: "bg-blue-600",
-      textColor: "text-blue-400",
-   },
-   underReview: {
-      name: "En Revision",
-      bgColor: "bg-orange-500",
-      textColor: "text-orange-300",
-   },
-   completed: {
-      name: "Completada",
-      bgColor: "bg-green-600",
-      textColor: "text-green-400",
-   },
-};
+import StatusBadge from "./StatusBadge";
 
 export default function DetailsTask({ data }: { data: Task }) {
    const [editTask, setEditTask] = useState(false);
@@ -45,7 +12,6 @@ export default function DetailsTask({ data }: { data: Task }) {
          {editTask ? (
             <EditTask 
                data={data}
-               statusTranslations={statusTranslations}
             />
          ) : (
             <>
@@ -56,17 +22,9 @@ export default function DetailsTask({ data }: { data: Task }) {
                      onClick={() => setEditTask(true)}
                   />
                </h2>
-               <p
-                  className={`my-3 ml-10 ${
-                     statusTranslations[data.status].bgColor
-                  } inline bg-opacity-60 opacity-80 py-1 px-2 rounded-xl text-sm font-bold`}
-               >
-                  <span
-                     className={`${statusTranslations[data.status].textColor}`}
-                  >
-                     {" " + statusTranslations[data.status].name}
-                  </span>
-               </p>
+               <StatusBadge
+                  status={data.status}
+               />
                <div className="px-10 mt-10">
                   <h3 className="text-xl group flex items-center">
                      Descripcion
