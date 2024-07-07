@@ -4,7 +4,6 @@ import TaskCard from "./TaskCard";
 
 type TaskListProps = {
    tasks: Task[];
-   setStatusSelectedTask: React.Dispatch<React.SetStateAction<string>>
 };
 
 type GroupedTasks = {
@@ -47,7 +46,7 @@ const statusTranslations: { [key: string]: statusTranslations } = {
    },
 };
 
-export default function TaskList({ tasks, setStatusSelectedTask }: TaskListProps) {
+export default function TaskList({ tasks }: TaskListProps) {
    const navigate = useNavigate();
 
    const groupedTasks = tasks.reduce((acc, task) => {
@@ -78,7 +77,7 @@ export default function TaskList({ tasks, setStatusSelectedTask }: TaskListProps
                         {groupedTasks[status].length ? (
                            <ul className="divide-y-4 divide-gray-300 dark:divide-neutral-900">
                               {tasks.map((task) => (
-                                 <TaskCard key={task._id} task={task} status={status} setStatusSelectedTask={setStatusSelectedTask} />
+                                 <TaskCard key={task._id} task={task}/>
                               ))}
                            </ul>
                         ) : (

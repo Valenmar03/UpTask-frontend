@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Task } from "../../types";
 import { PencilIcon } from "@heroicons/react/20/solid";
 
@@ -35,7 +36,9 @@ const statusTranslations: { [key: string]: statusTranslations } = {
   },
 };
 
-export default function DetailsTask({ data, status }: { data: Task, status: string }) {
+export default function DetailsTask({ data  }: { data: Task }) {
+
+   const [editTask, setEditTask] = useState()
 
    return (
       <>
@@ -45,8 +48,8 @@ export default function DetailsTask({ data, status }: { data: Task, status: stri
             className="size-6 sm:invisible group-hover:visible ml-2 text-purple-600 cursor-pointer"
           />
          </h2>
-         <p className={`my-3 ml-10 ${statusTranslations[status].bgColor} inline bg-opacity-60 opacity-80 py-1 px-2 rounded-xl text-xs`}>
-            <span className={`${statusTranslations[status].textColor}`}>{" " + statusTranslations[status].name}</span>
+         <p className={`my-3 ml-10 ${statusTranslations[data.status].bgColor} inline bg-opacity-60 opacity-80 py-1 px-2 rounded-xl text-xs`}>
+            <span className={`${statusTranslations[data.status].textColor}`}>{" " + statusTranslations[data.status].name}</span>
          </p>
          <div className="px-10 mt-10">
           <h3 className="text-xl group flex items-center">
