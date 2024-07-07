@@ -10,25 +10,32 @@ import NavbarMenu from "../components/NavbarMenu";
 
 export default function AppLayout() {
    const [theme, setTheme] = useState(() => {
+      const themeLS = localStorage.getItem("theme");
+      if(themeLS){
+         return themeLS
+      }
       if (window.matchMedia("(prefers-color-scheme:dark").matches) {
          return "dark";
       }
-      document.querySelector("html")?.classList.add("pretty-bg");
       return "light";
    });
 
    useEffect(() => {
       if (theme === "dark") {
          document.querySelector("html")?.classList.add("dark");
-         document.querySelector("html")?.classList.remove("pretty-bg");
       } else {
          document.querySelector("html")?.classList.remove("dark");
-         document.querySelector("html")?.classList.add("pretty-bg");
       }
    }, [theme]);
 
    const handleChangeTheme = () => {
-      theme === "light" ? setTheme("dark") : setTheme("light");
+      if(theme === "light"){
+         setTheme("dark")
+         localStorage.setItem("theme", "dark");
+         return
+      }
+      setTheme("light");
+      localStorage.setItem("theme", "light");
    };
 
    return (
