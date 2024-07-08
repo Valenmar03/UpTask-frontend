@@ -1,11 +1,43 @@
-import { Task } from "../../types";
-import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-import StatusBadge from "./StatusBadge";
 import { useState } from "react";
+
+import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import StatusBadge from "./StatusBadge";
 import EditTask from "./EditTask";
+import { Task } from "../../types";
+import { deleteTask } from "../../api/TaskAPI";
+import { toast } from "react-toastify";
 
 export default function DetailsTask({ data }: { data: Task }) {
    const [editTask, setEditTask] = useState(false);
+
+   const params = useParams()
+   const projectId = params.projectId!
+   const queryClient = useQueryClient()
+   const navigate = useNavigate()
+   
+   const { mutate } = useMutation({
+      mutationFn: deleteTask,
+      onError: () => {
+         toast.error("Error eliminando tarea")
+      },
+      onSuccess: () => {
+         toast.success("Tarea Eliminada Correctamente")
+         queryClient.invalidateQueries({ queryKey: ["editProject", projectId]})
+         navigate("", {replace: true})
+      }
+   })
+
+   const handleDelete = () => {
+      const deleteData = {
+         taskId: data._id,
+         projectId
+      }
+      mutate(deleteData)
+   }
+   
 
    return (
       <>
@@ -13,16 +45,18 @@ export default function DetailsTask({ data }: { data: Task }) {
             <EditTask data={data} setEditTask={setEditTask} />
          ) : (
             <>
-               <div className="flex flex-col sm:flex-row sm:justify-between group sm:items-center mb-2">
-                  <h2 className="text-4xl font-bold px-10 mb-1 mt-5 ">
+               <div className="flex flex-col sm:flex-row sm:justify-between group sm:items-center mb-2 mt-5">
+                  <h2 className="text-4xl font-bold px-10">
                      {data.name}
                   </h2>
-                  <div className="flex items-center space-x-2 mx-2 px-10">
+                  <div className="flex items-center space-x-3 mx-2 px-10">
                      <PencilIcon
                         className="size-7 hover:scale-110  duration-150 text-purple-600 cursor-pointer"
                         onClick={() => setEditTask(true)}
                      />
-                     <TrashIcon className="size-7 hover:scale-110 duration-150 text-red-600 cursor-pointer" />
+                     <TrashIcon className="size-7 hover:scale-110 duration-150 text-red-600 cursor-pointer" 
+                        onClick={handleDelete}
+                     />
                   </div>
                </div>
                <StatusBadge status={data.status} />
