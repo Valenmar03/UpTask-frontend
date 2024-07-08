@@ -65,7 +65,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                            Eliminar
                         </button>
                         <button
-                           className="py-3 px-10 text-gray-800 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
+                           className="py-3 px-10 text-gray-800 border-2 border-gray-300 dark:border-neutral-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
                            onClick={closeModal}
                         >
                            Cancelar
