@@ -58,7 +58,7 @@ export default function TaskList({ tasks }: TaskListProps) {
    return (
       <>
          {tasks.length ? (
-            <div className="flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32">
+            <div className="flex gap-1 overflow-x-scroll 2xl:overflow-auto pb-32">
                {Object.entries(groupedTasks).map(([status, tasks]) => (
                   <div
                      key={status}

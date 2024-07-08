@@ -36,6 +36,9 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
                      </div>
                   </Link>
                </div>
+               <p className="text-xl text-gray-800 dark:text-gray-300 mx-auto">
+                  {data.description}
+               </p>
                <p className="text-lg text-gray-800 dark:text-gray-300 mx-auto">
                   Proyecto de{" "}
                   <span className="text-purple-500">{data.clientName}</span>
