@@ -3,6 +3,7 @@ import { useLocation, useParams, Navigate } from "react-router-dom";
 import { getTaskById } from "../../api/TaskAPI";
 import DetailsTask from "./DetailsTask";
 import Spinner from "../Spinner";
+import { toast } from "react-toastify";
 
 export default function DetailsTaskModal() {
    const location = useLocation();
@@ -22,7 +23,10 @@ export default function DetailsTaskModal() {
       retry: false,
    });
 
-   if (isError) return <Navigate to={"/404"} />;
+   if (isError) {
+      toast.error("Tarea no encontrada", {toastId: 'error'})
+      return <Navigate to={`/projects/${projectId}`}/>
+   }
    if(isLoading) return <Spinner></Spinner>
    if (data) 
         return (
