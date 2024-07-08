@@ -63,7 +63,7 @@ export default function EditProjectForm({ data }: EditProjectFormProps) {
             />
 
             <div className="flex flex-col items-center mx-auto">
-               <h1 className="text-4xl font-bold">Editar Proyecto</h1>
+               <h3 className="text-4xl font-bold">Editar Proyecto</h3>
                <p className="text-lg text-gray-800 dark:text-gray-300">
                   <span className="text-purple-500">Edita</span>{" "}
                   {`${data.projectName} de ${data.clientName}`}

@@ -47,9 +47,9 @@ export default function TaskForm({ register, errors }: TaskFormProps) {
             </label>
             <textarea
                id="description"
-               className={`w-full p-3 border border-gray-200 rounded bg-gray-200 text-black max-h-36 min-h-24${
+               className={`w-full p-3 border border-gray-200 rounded bg-gray-200 text-black max-h-36 min-h-24 ${
                   Object.keys(errors).includes("description") &&
-                  " border-l-4 border-l-red-500"
+                  "border-l-4 border-l-red-500"
                }`}
                placeholder="Descripcion de la Tarea"
                {...register("description", {

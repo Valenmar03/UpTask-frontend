@@ -1,16 +1,15 @@
-import { useState } from "react";
 import { Task } from "../../types";
 import { PencilIcon } from "@heroicons/react/20/solid";
-import EditTask from "./EditTask";
 import StatusBadge from "./StatusBadge";
+import { useState } from "react";
+import EditTask from "./EditTask";
 
 export default function DetailsTask({ data }: { data: Task }) {
    const [editTask, setEditTask] = useState(false);
-
    return (
       <>
          {editTask ? (
-            <EditTask 
+            <EditTask
                data={data}
             />
          ) : (
@@ -22,9 +21,7 @@ export default function DetailsTask({ data }: { data: Task }) {
                      onClick={() => setEditTask(true)}
                   />
                </h2>
-               <StatusBadge
-                  status={data.status}
-               />
+               <StatusBadge status={data.status} />
                <div className="px-10 mt-10">
                   <h3 className="text-xl group flex items-center">
                      Descripcion
