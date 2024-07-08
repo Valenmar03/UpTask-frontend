@@ -1,5 +1,5 @@
 import { Task } from "../../types";
-import { PencilIcon } from "@heroicons/react/20/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import StatusBadge from "./StatusBadge";
 import { useState } from "react";
 import EditTask from "./EditTask";
@@ -13,13 +13,18 @@ export default function DetailsTask({ data }: { data: Task }) {
             <EditTask data={data} setEditTask={setEditTask} />
          ) : (
             <>
-               <h2 className="text-4xl font-bold px-10 group flex flex-col sm:flex-row sm:items-center mb-1 mt-5">
-                  {data.name}
-                  <PencilIcon
-                     className="size-6 sm:invisible group-hover:visible ml-2 text-purple-600 cursor-pointer"
-                     onClick={() => setEditTask(true)}
-                  />
-               </h2>
+               <div className="flex flex-col sm:flex-row sm:justify-between group sm:items-center mb-2">
+                  <h2 className="text-4xl font-bold px-10 mb-1 mt-5 ">
+                     {data.name}
+                  </h2>
+                  <div className="flex items-center space-x-2 mx-2 px-10">
+                     <PencilIcon
+                        className="size-7 hover:scale-110  duration-150 text-purple-600 cursor-pointer"
+                        onClick={() => setEditTask(true)}
+                     />
+                     <TrashIcon className="size-7 hover:scale-110 duration-150 text-red-600 cursor-pointer" />
+                  </div>
+               </div>
                <StatusBadge status={data.status} />
                <div className="px-10 mt-10">
                   <h3 className="text-xl group flex items-center">

@@ -65,11 +65,19 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
          <form onSubmit={handleSubmit(handleEditTask)} className="px-10 mt-3">
             <TaskForm register={register} errors={errors} />
 
-            <input
-               type="submit"
-               className="text-white bg-purple-500 mx-auto block px-8 py-3 rounded-md hover:bg-purple-600 duration-200 text-lg cursor-pointer"
-               value="Guardar Cambios"
-            />
+            <div className="flex flex-col sm:flex-row justify-center space-y-5 sm:space-y-0 sm:space-x-20">
+               <input
+                  type="submit"
+                  className="text-white bg-purple-500 px-10 py-3 rounded-md hover:bg-purple-600 duration-200 text-lg cursor-pointer"
+                  value="Guardar"
+               />
+               <button
+                  className="text-neutral-800 dark:text-neutral-200 px-10 py-3 border-2 dark:border-neutral-700 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 duration-200 text-lg cursor-pointer"
+                  onClick={() => setEditTask(false)}
+               >
+                  Cancelar
+               </button>
+            </div>
          </form>
       </>
    );
