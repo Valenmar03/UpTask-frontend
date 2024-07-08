@@ -13,7 +13,7 @@ export default function TaskCard({
 
    return (
       <li className="py-3 px-2 bg-gray-100 dark:bg-neutral-800">
-         <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+         <div>
             <button
                className="text-lg hover:translate-x-1 hover:scale-105 duration-300"
                onClick={() => {

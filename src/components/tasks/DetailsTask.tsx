@@ -6,12 +6,11 @@ import EditTask from "./EditTask";
 
 export default function DetailsTask({ data }: { data: Task }) {
    const [editTask, setEditTask] = useState(false);
+
    return (
       <>
          {editTask ? (
-            <EditTask
-               data={data}
-            />
+            <EditTask data={data} setEditTask={setEditTask} />
          ) : (
             <>
                <h2 className="text-4xl font-bold px-10 group flex flex-col sm:flex-row sm:items-center mb-1">
