@@ -13,7 +13,7 @@ export default function DetailsTask({ data }: { data: Task }) {
             <EditTask data={data} setEditTask={setEditTask} />
          ) : (
             <>
-               <h2 className="text-4xl font-bold px-10 group flex flex-col sm:flex-row sm:items-center mb-1">
+               <h2 className="text-4xl font-bold px-10 group flex flex-col sm:flex-row sm:items-center mb-1 mt-5">
                   {data.name}
                   <PencilIcon
                      className="size-6 sm:invisible group-hover:visible ml-2 text-purple-600 cursor-pointer"

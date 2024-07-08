@@ -49,7 +49,7 @@ export default function AddTask({ data }: { data: Project }) {
 
    return (
       <>
-         <h2 className="text-4xl font-bold px-10">
+         <h2 className="text-4xl font-bold px-10 mt-5">
             Nueva <span className="text-purple-600">Tarea</span>
          </h2>
          <p className="my-3 px-10">

@@ -55,7 +55,7 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
 
    return (
       <>
-         <h2 className="text-4xl font-bold px-10">
+         <h2 className="text-4xl font-bold px-10 mt-5">
             Editar <span className="text-purple-600">Tarea</span>
          </h2>
          <p className=" px-10 mb-2">

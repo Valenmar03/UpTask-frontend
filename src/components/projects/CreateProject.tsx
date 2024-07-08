@@ -41,7 +41,7 @@ export default function CreateProject() {
 
    return (
       <>
-         <h2 className="text-4xl font-bold px-10">
+         <h2 className="text-4xl font-bold px-10 mt-5">
             Nuevo <span className="text-purple-600">Proyecto</span>
          </h2>
          <p className="my-3 px-10">

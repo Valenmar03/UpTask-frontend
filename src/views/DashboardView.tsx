@@ -5,7 +5,6 @@ import { getAllProjects } from "../api/ProjectAPI";
 import Spinner from "../components/Spinner";
 import DashboardItem from "../components/projects/DashboardItem";
 import Modal from "../components/Modal";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import CreateProject from "../components/projects/CreateProject";
 
 export default function DashboardView() {
@@ -45,10 +44,6 @@ export default function DashboardView() {
                   className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
                   onClick={e => e.stopPropagation()}   
                >
-                  <XMarkIcon
-                     className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150 mb-3"
-                     onClick={closeModal}
-                  />
                   <CreateProject />
                </div>
             </Modal>

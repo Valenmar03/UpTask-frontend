@@ -3,8 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProjectById } from "../../api/ProjectAPI";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/Modal";
 import AddTask from "../../components/tasks/AddTask";
@@ -60,10 +58,6 @@ export default function ProjectDetailsView() {
                      className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
                      onClick={e => e.stopPropagation()}
                   >
-                     <XMarkIcon
-                        className="ml-auto size-6 cursor-pointer hover:scale-110 duration-150 mb-3"
-                        onClick={closeModal}
-                     />
                      {
                         modalCreateTask ? (
                            <AddTask data={data}/>
