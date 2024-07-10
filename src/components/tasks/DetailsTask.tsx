@@ -32,14 +32,15 @@ export default function DetailsTask({ data }: { data: Task }) {
          navigate("", { replace: true });
       },
    });
-
+   
+   const idsData = {
+      taskId: data._id,
+      projectId
+   }
    const handleDelete = () => {
-      const deleteData = {
-         taskId: data._id,
-         projectId,
-      };
-      mutate(deleteData);
+      mutate(idsData);
    };
+
 
    return (
       <>
@@ -61,7 +62,7 @@ export default function DetailsTask({ data }: { data: Task }) {
                      />
                   </div>
                </div>
-               <StatusBadge status={data.status} />
+               <StatusBadge status={data.status} idsData={idsData}/>
                <div className="px-10 mt-10">
                   <h3 className="text-xl group flex items-center">
                      Descripcion

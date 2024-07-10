@@ -44,11 +44,15 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
       },
    });
 
+   const idsData = {
+      taskId: data._id,
+      projectId
+   }
+
    const handleEditTask = (formData: TaskFormData) => {
       const queryData = {
-         projectId,
-         taskId: data._id,
-         formData,
+         ...idsData,
+         formData
       };
       mutate(queryData);
    };
@@ -61,7 +65,7 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
          <p className=" px-10 mb-2">
             Edite <span className="text-purple-500">{`${data.name}`}</span>
          </p>
-         <StatusBadge status={data.status} />
+         <StatusBadge status={data.status} idsData={idsData} />
          <form onSubmit={handleSubmit(handleEditTask)} className="px-10 mt-3">
             <TaskForm register={register} errors={errors} />
 
