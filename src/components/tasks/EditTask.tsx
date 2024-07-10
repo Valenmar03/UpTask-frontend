@@ -39,6 +39,9 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
          queryClient.invalidateQueries({
             queryKey: ["project", projectId],
          });
+         queryClient.invalidateQueries({
+            queryKey: ["task", data._id],
+         });
          setEditTask(false);
          navigate("", { replace: true });
       },
