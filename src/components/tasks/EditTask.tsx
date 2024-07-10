@@ -37,7 +37,7 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
       onSuccess: () => {
          toast.success("Tarea editada correctamente");
          queryClient.invalidateQueries({
-            queryKey: ["editProject", projectId],
+            queryKey: ["project", projectId],
          });
          setEditTask(false);
          navigate("", { replace: true });

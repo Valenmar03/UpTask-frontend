@@ -3,6 +3,7 @@ import { statusTranslations } from "../../locales/es";
 import { changeStatus } from "../../api/TaskAPI";
 import { toast } from "react-toastify";
 import { TaskStatus } from "../../types";
+import { useNavigate } from "react-router-dom";
 
 type statusStyles = {
    bgColorDark: string;
@@ -52,8 +53,9 @@ type StatusBadgeProps = {
 export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
    const theme = localStorage.getItem("theme");
 
-   const queryClient = useQueryClient()
+   const navigate = useNavigate()
 
+   const queryClient = useQueryClient()
    const { mutate } = useMutation({
       mutationFn: changeStatus,
       onError:() => {
@@ -62,6 +64,8 @@ export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
       onSuccess: () => {
          toast.success('Estado modificado correctamente')
          queryClient.invalidateQueries({queryKey: ['project', idsData.projectId]})
+         queryClient.invalidateQueries({queryKey: ['task', idsData.taskId]})
+         navigate("", { replace: true });
       }
    })
 

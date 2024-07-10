@@ -17,11 +17,8 @@ export default function ProjectDetailsView() {
    const queryParams = new URLSearchParams(location.search);
    const modalCreateTask = queryParams.get("newTask");
    const modalTaskDetails = queryParams.get("taskId");
-
    const show = modalCreateTask ? modalCreateTask : modalTaskDetails;
-
    const navigate = useNavigate();
-
    const params = useParams();
    const projectId = params.projectId!;
 
