@@ -38,7 +38,7 @@ export default function EditProjectForm({ data }: EditProjectFormProps) {
       },
       onSuccess: () => {
          queryClient.invalidateQueries({
-            queryKey: ["editProject", projectId],
+            queryKey: ["project", projectId],
          }); // Actualiza las queries para obetener informacion nueva
          toast.success("Proyecto editado correctamente");
          navigate("/");

@@ -35,7 +35,7 @@ export default function AddTask({ data }: { data: Project }) {
             autoClose: 3000 
          })
          reset()
-         queryClient.invalidateQueries({ queryKey: ["editProject", projectId]})
+         queryClient.invalidateQueries({ queryKey: ["project", projectId]})
       }
    })
 

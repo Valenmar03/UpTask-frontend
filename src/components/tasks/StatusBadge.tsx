@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { statusTranslations } from "../../locales/es";
 import { changeStatus } from "../../api/TaskAPI";
 import { toast } from "react-toastify";
@@ -46,11 +46,13 @@ const statusStyles: { [key: string]: statusStyles } = {
 
 type StatusBadgeProps = {
    status: string;
-   idsData?: { taskId: string; projectId: string };
+   idsData: { taskId: string; projectId: string };
 };
 
 export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
    const theme = localStorage.getItem("theme");
+
+   const queryClient = useQueryClient()
 
    const { mutate } = useMutation({
       mutationFn: changeStatus,
@@ -59,6 +61,7 @@ export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
       },
       onSuccess: () => {
          toast.success('Estado modificado correctamente')
+         queryClient.invalidateQueries({queryKey: ['project', idsData.projectId]})
       }
    })
 
@@ -67,7 +70,6 @@ export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
          ...idsData!,
          status: e.target.value as TaskStatus
       }
-      console.log(data)
       mutate(data)
    }
 

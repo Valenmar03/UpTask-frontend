@@ -27,7 +27,7 @@ export default function DetailsTask({ data }: { data: Task }) {
       onSuccess: () => {
          toast.success("Tarea Eliminada Correctamente");
          queryClient.invalidateQueries({
-            queryKey: ["editProject", projectId],
+            queryKey: ["project", projectId],
          });
          navigate("", { replace: true });
       },
