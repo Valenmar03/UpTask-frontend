@@ -3,9 +3,13 @@ import { useForm } from "react-hook-form";
 import { UserRegisterForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { createAccount } from "../../api/AuthAPI";
+import { toast } from "react-toastify";
 
 export default function RegisterView() {
    const [allFieldsFill, setAllFieldsFill] = useState(true);
+
 
    const initialValues: UserRegisterForm = {
       name: "",
@@ -22,9 +26,21 @@ export default function RegisterView() {
       formState: { errors },
    } = useForm<UserRegisterForm>({ defaultValues: initialValues });
 
+   const { mutate } = useMutation({
+      mutationFn: createAccount,
+      onError: (error) => {
+         error.message === 'User already exists' && 
+         toast.error('Ya existe una cuenta con ese correo')
+      },
+      onSuccess: (data) => {
+         toast.success(data)
+         reset()
+      } 
+   })
+
    const password = watch("password");
 
-   const handleRegister = (formData: UserRegisterForm) => {};
+   const handleRegister = (formData: UserRegisterForm) => mutate(formData);
 
    useEffect(() => {
       if (Object.keys(errors).length > 0) {
@@ -34,7 +50,6 @@ export default function RegisterView() {
       setAllFieldsFill(true);
    }, [errors]);
 
-   console.log(errors);
 
    return (
       <>

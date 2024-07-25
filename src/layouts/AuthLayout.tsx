@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import Logo from "../components/Logo";
 import LogoDark from "../components/LogoDark";
 import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
+import { ToastContainer } from "react-toastify";
 
 export default function AuthLayout() {
    const [theme, setTheme] = useState(() => {
@@ -73,6 +74,11 @@ export default function AuthLayout() {
                Valentin Martinez {new Date().getFullYear()}
             </p>
          </footer>
+
+         <ToastContainer 
+            pauseOnFocusLoss={false}
+            pauseOnHover={false}
+         />
       </>
    );
 }
