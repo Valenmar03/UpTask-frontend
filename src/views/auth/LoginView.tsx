@@ -85,7 +85,7 @@ export default function LoginView() {
             />
          </form>
 
-         <nav className="flex flex-col space-y-4 px-10">
+         <nav className="flex flex-col text-center px-10">
             <p className="text-sm">
                ¿No tienes cuenta? {' '}
                <Link to={"/auth/register"} className="text-purple-500">Crea una aquí</Link>

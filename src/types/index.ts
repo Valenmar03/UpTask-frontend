@@ -5,11 +5,13 @@ const authSchema = z.object({
    email: z.string(),
    password: z.string(),
    password_confirmation: z.string(),
+   token: z.string(),
 })
 
 type Auth = z.infer<typeof authSchema>
 export type UserLoginForm = Pick<Auth, 'email' | 'password' >
-export type UserRegisterForm = Pick<Auth,  'name' | 'email' | 'password' | 'password_confirmation'  >
+export type UserRegisterForm = Pick<Auth,  'name' | 'email' | 'password' | 'password_confirmation'>
+export type ConfirmToken = Pick<Auth, 'token' >
 
 export const taskStatusSchema = z.enum([
    "pending",
