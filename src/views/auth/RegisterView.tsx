@@ -33,7 +33,8 @@ export default function RegisterView() {
          toast.error('Ya existe una cuenta con ese correo')
       },
       onSuccess: (data) => {
-         toast.success(data)
+         data === 'Account created successfully, check email to confirm' &&
+         toast.success('Cuenta creada, revise su E-mail para confirmarla')
          reset()
       } 
    })
