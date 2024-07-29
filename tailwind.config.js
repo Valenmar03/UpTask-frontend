@@ -1,3 +1,5 @@
+import { transform } from 'typescript';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -11,6 +13,13 @@ export default {
       roboto: ["Roboto", "Outfit", 'sans-serif'],
     },
     extend: {},
+    keyframes:{
+      shimmer: {
+        '100%' : {
+          transform: 'translateX(100%)'
+        }
+      }
+    }
   },
   plugins: [],
 }

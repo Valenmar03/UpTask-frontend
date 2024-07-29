@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import DashboardItem from "../components/projects/DashboardItem";
 import Modal from "../components/Modal";
 import CreateProject from "../components/projects/CreateProject";
+import ProjectsItemsLoading from "../components/Loadings/ProjectsItemsLoading";
 
 export default function DashboardView() {
    const [animateModal, setAnimateModal] = useState(false);
@@ -39,10 +40,10 @@ export default function DashboardView() {
    return (
       <>
          {show && (
-            <Modal animateModal={animateModal} closeModal={closeModal} >
-               <div 
+            <Modal animateModal={animateModal} closeModal={closeModal}>
+               <div
                   className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
-                  onClick={e => e.stopPropagation()}   
+                  onClick={(e) => e.stopPropagation()}
                >
                   <CreateProject />
                </div>
@@ -68,7 +69,10 @@ export default function DashboardView() {
          </div>
          <div className="w-full h-full">
             {isLoading ? (
-               <Spinner></Spinner>
+               <ul className="mt-10 divide-y-2 divide-gray-200 dark:divide-neutral-800">
+                  <ProjectsItemsLoading />
+                  <ProjectsItemsLoading />
+               </ul>
             ) : data && data.length ? (
                <ul className="mt-10 divide-y-2 divide-gray-200 dark:divide-neutral-800">
                   {data.map((project) => (
