@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { UserLoginForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
-import { Link } from "react-router-dom";
+import { logIn } from "../../api/AuthAPI";
 
 export default function LoginView() {
    const [allFieldsFill, setAllFieldsFill] = useState(true);
@@ -17,6 +20,25 @@ export default function LoginView() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
+   const { mutate } = useMutation({
+      mutationFn: logIn, 
+      onError: (error) => {
+         error.message === 'User not found' &&
+            toast.error('El usuario no existe')
+         error.message === 'User is not confirmed, check your email to confirm the account' &&
+            toast.error('El usuario no esta confirmado, enviamos un codigo de confirmacion a tu correo. Puedes cerrar esta ventana')
+         error.message === 'Password is not correct' &&
+            toast.error('Contraseña Incorrecta')
+      },
+      onSuccess: (data) => {
+         data === 'User authenticated' &&
+            toast.success('Ingresando...')
+      }
+   })
+
+   const handleLogin = (formData: UserLoginForm) => mutate(formData);
+
+
    useEffect(() => {
       if (
          errors.email?.type === "required" ||
@@ -27,8 +49,6 @@ export default function LoginView() {
       }
       setAllFieldsFill(true);
    }, [errors.email, errors.password]);
-
-   const handleLogin = (formData: UserLoginForm) => {};
 
    return (
       <>
