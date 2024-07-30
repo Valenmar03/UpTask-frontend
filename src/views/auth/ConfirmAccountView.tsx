@@ -27,6 +27,7 @@ export default function ConfirmAccountView() {
    })
 
     const handleChange = (token: ConfirmToken['token']) => {
+
         setToken(token);
     }
 
