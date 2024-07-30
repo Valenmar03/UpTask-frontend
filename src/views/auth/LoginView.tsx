@@ -18,12 +18,15 @@ export default function LoginView() {
    } = useForm({ defaultValues: initialValues });
 
    useEffect(() => {
-      if (Object.keys(errors).length > 0) {
+      if (
+         errors.email?.type === "required" ||
+         errors.password?.type === "required"
+      ) {
          setAllFieldsFill(false);
          return;
       }
       setAllFieldsFill(true);
-   }, [errors]);
+   }, [errors.email, errors.password]);
 
    const handleLogin = (formData: UserLoginForm) => {};
 
@@ -39,12 +42,13 @@ export default function LoginView() {
             )}
             <div className="space-y-5">
                <div className="flex flex-col gap-3">
-                  <label className="font-normal text-xl">Email</label>
-
+                  <label className="font-normal text-xl" htmlFor="email">
+                     Email
+                  </label>
                   <input
                      id="email"
                      type="email"
-                     placeholder="Email de Registro"
+                     placeholder="example@email.com"
                      className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black 
               ${
                  Object.keys(errors).includes("email") &&
@@ -58,6 +62,9 @@ export default function LoginView() {
                         },
                      })}
                   />
+                  {errors.email?.type === "pattern" && (
+                     <p className="text-red-500 text-sm">Email no válido</p>
+                  )}
                </div>
 
                <div className="flex flex-col gap-3">
@@ -65,7 +72,7 @@ export default function LoginView() {
 
                   <input
                      type="password"
-                     placeholder="Password de Registro"
+                     placeholder="Contraseña"
                      className={`w-full p-3  border border-gray-200 rounded bg-gray-200 text-black 
               ${
                  Object.keys(errors).includes("password") &&
@@ -87,8 +94,10 @@ export default function LoginView() {
 
          <nav className="flex flex-col text-center px-10">
             <p className="text-sm">
-               ¿No tienes cuenta? {' '}
-               <Link to={"/auth/register"} className="text-purple-500">Crea una aquí</Link>
+               ¿No tienes cuenta?{" "}
+               <Link to={"/auth/register"} className="text-purple-500">
+                  Crea una aquí
+               </Link>
             </p>
          </nav>
       </>

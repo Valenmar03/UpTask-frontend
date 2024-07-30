@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 export default function RegisterView() {
    const [allFieldsFill, setAllFieldsFill] = useState(true);
 
-
    const initialValues: UserRegisterForm = {
       name: "",
       email: "",
@@ -29,28 +28,32 @@ export default function RegisterView() {
    const { mutate } = useMutation({
       mutationFn: createAccount,
       onError: (error) => {
-         error.message === 'User already exists' && 
-         toast.error('Ya existe una cuenta con ese correo')
+         error.message === "User already exists" &&
+            toast.error("Ya existe una cuenta con ese correo");
       },
       onSuccess: (data) => {
-         data === 'Account created successfully, check email to confirm' &&
-         toast.success('Cuenta creada, revise su E-mail para confirmarla')
-         reset()
-      } 
-   })
+         data === "Account created successfully, check email to confirm" &&
+            toast.success("Cuenta creada, revise su E-mail para confirmarla");
+         reset();
+      },
+   });
 
    const password = watch("password");
 
    const handleRegister = (formData: UserRegisterForm) => mutate(formData);
 
    useEffect(() => {
-      if (Object.keys(errors).length > 0) {
-        setAllFieldsFill(false);
-        return;
+      if (
+         errors.email?.type === "required" ||
+         errors.password?.type === "required" ||
+         errors.name?.type === "required" ||
+         errors.password_confirmation?.type === "required"
+      ) {
+         setAllFieldsFill(false);
+         return;
       }
       setAllFieldsFill(true);
-   }, [errors]);
-
+   }, [errors.email, errors.password, errors.name, errors.password_confirmation]);
 
    return (
       <>
@@ -177,8 +180,10 @@ export default function RegisterView() {
 
          <nav className="flex flex-col px-10 text-center">
             <p className="text-sm">
-               ¿Ya tienes cuenta? {' '}
-               <Link to={"/auth/login"} className="text-purple-500">Iniciar sesión</Link>
+               ¿Ya tienes cuenta?{" "}
+               <Link to={"/auth/login"} className="text-purple-500">
+                  Iniciar sesión
+               </Link>
             </p>
          </nav>
       </>
