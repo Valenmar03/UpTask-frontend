@@ -58,7 +58,7 @@ export default function ConfirmAccountView() {
          <nav className=" flex flex-col space-y-4 text-center">
          <p className="text-sm">
                ¿El código expiró? {' '}
-               <Link to="/auth/new-code" className="text-purple-500">Reenviar Código</Link>
+               <Link to="/auth/request-new-code" className="text-purple-500">Reenviar Código</Link>
             </p>
          </nav>
       </>
