@@ -82,7 +82,7 @@ export default function RequestNewCodeView() {
             </p>
             <p className="text-sm">
                ¿Olvidaste tu contraseña?{" "}
-               <Link to="/auth/request-new-code" className="text-purple-500">
+               <Link to="/auth/forgot-password" className="text-purple-500">
                   Reestablecer
                </Link>
             </p>

@@ -21,23 +21,24 @@ export default function LoginView() {
    } = useForm({ defaultValues: initialValues });
 
    const { mutate } = useMutation({
-      mutationFn: logIn, 
+      mutationFn: logIn,
       onError: (error) => {
-         error.message === 'User not found' &&
-            toast.error('El usuario no existe')
-         error.message === 'User is not confirmed, check your email to confirm the account' &&
-            toast.error('El usuario no esta confirmado, enviamos un codigo de confirmacion a tu correo. Puedes cerrar esta ventana')
-         error.message === 'Password is not correct' &&
-            toast.error('Contraseña Incorrecta')
+         error.message === "User not found" &&
+            toast.error("El usuario no existe");
+         error.message ===
+            "User is not confirmed, check your email to confirm the account" &&
+            toast.error(
+               "El usuario no esta confirmado, enviamos un codigo de confirmacion a tu correo. Puedes cerrar esta ventana"
+            );
+         error.message === "Password is not correct" &&
+            toast.error("Contraseña Incorrecta");
       },
       onSuccess: (data) => {
-         data === 'User authenticated' &&
-            toast.success('Ingresando...')
-      }
-   })
+         data === "User authenticated" && toast.success("Ingresando...");
+      },
+   });
 
    const handleLogin = (formData: UserLoginForm) => mutate(formData);
-
 
    useEffect(() => {
       if (
@@ -117,6 +118,12 @@ export default function LoginView() {
                ¿No tienes cuenta?{" "}
                <Link to={"/auth/register"} className="text-purple-500">
                   Crea una aquí
+               </Link>
+            </p>
+            <p className="text-sm">
+               ¿Olvidaste tu contraseña?{" "}
+               <Link to={"/auth/forgot-password"} className="text-purple-500">
+                  Reestablecer
                </Link>
             </p>
          </nav>
