@@ -14,6 +14,7 @@ export default function RequestNewCodeView() {
    const {
       register,
       handleSubmit,
+      reset,
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
@@ -30,6 +31,7 @@ export default function RequestNewCodeView() {
             toast.success(
                "Se envió un nuevo código de confirmacion, revisa tu correo para confirmarlo"
             );
+         reset()
       },
    });
 
@@ -38,8 +40,8 @@ export default function RequestNewCodeView() {
 
    return (
       <>
-         <h1 className="text-3xl font-black ">Solicitar nuevo código</h1>
-         <p className=" font-light ">
+         <h1 className="text-3xl font-black px-10 mt-5">Solicitar nuevo código</h1>
+         <p className=" font-light px-10">
             Ingresa tu correo y recibirás un {""}
             <span className=" text-purple-500 font-bold"> nuevo código</span>
          </p>
