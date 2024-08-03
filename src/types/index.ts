@@ -13,6 +13,7 @@ export type UserLoginForm = Pick<Auth, 'email' | 'password' >
 export type UserRegisterForm = Pick<Auth,  'name' | 'email' | 'password' | 'password_confirmation'>
 export type RequestConfirmationCodeForm = Pick<Auth, 'email'>
 export type ForgotPasswordForm = Pick<Auth, 'email'>
+export type NewPasswordForm = Pick<Auth, 'password' | 'password_confirmation'>
 export type ConfirmToken = Pick<Auth, 'token' >
 
 export const taskStatusSchema = z.enum([
