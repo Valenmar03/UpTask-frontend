@@ -1,13 +1,36 @@
 import { PinInput, PinInputField } from "@chakra-ui/pin-input";
+import { useMutation } from "@tanstack/react-query";
+import { validateToken } from "../../api/AuthAPI";
+import { toast } from "react-toastify";
+import { ValidateToken } from "../../types";
 
-export default function () {
+type NewPasswordTokenProps = {
+   token: ValidateToken["token"];
+   setToken: React.Dispatch<React.SetStateAction<string>>;
+   setIsValidToken: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-    const handleChange = (token:string) => {
+export default function NewPasswordToken({
+   token,
+   setToken,
+   setIsValidToken,
+}: NewPasswordTokenProps) {
+   const { mutate } = useMutation({
+      mutationFn: validateToken,
+      onError: (error) => {
+         error.message === "Invalid Token" && toast.error("Token inválido");
+      },
+      onSuccess: (data) => {
+         data === "Valid token, define your new password" &&
+            toast.success("Token válido. Define tu nueva contraseña");
+         setIsValidToken(true);
+      },
+   });
 
-    }
-    const handleComplete = (token:string) => {
-        
-    }
+   const handleChange = (token: ValidateToken["token"]) => {
+      setToken(token);
+   };
+   const handleComplete = (token: ValidateToken["token"]) => mutate({ token });
 
    return (
       <form className="space-y-3 px-10 py-4">
@@ -16,7 +39,7 @@ export default function () {
          </label>
          <div className="flex justify-center gap-5 text-black">
             <PinInput
-               value={'123'}
+               value={token}
                onChange={handleChange}
                onComplete={handleComplete}
             >

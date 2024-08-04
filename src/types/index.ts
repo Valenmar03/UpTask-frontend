@@ -15,6 +15,8 @@ export type RequestConfirmationCodeForm = Pick<Auth, 'email'>
 export type ForgotPasswordForm = Pick<Auth, 'email'>
 export type NewPasswordForm = Pick<Auth, 'password' | 'password_confirmation'>
 export type ConfirmToken = Pick<Auth, 'token' >
+export type ValidateToken = Pick<Auth, 'token' >
+
 
 export const taskStatusSchema = z.enum([
    "pending",

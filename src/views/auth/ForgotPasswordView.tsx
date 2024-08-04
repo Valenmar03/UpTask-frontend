@@ -26,9 +26,9 @@ export default function ForgotPasswordView() {
               toast.error("El usuario no existe");
         },
         onSuccess: (data) => {
-           data === "Check email and follow instructions to restore password" &&
+           data === "Check email and follow instructions to restore password. Can close this page" &&
               toast.success(
-                 "Revisa tu correo para restablecer la contraseña"
+                 "Revisa tu correo para restablecer la contraseña. Puedes cerrar esta pestaña"
               );
               reset()
         },
