@@ -1,10 +1,15 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { NewPasswordForm as NewPasswordFormType } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { NewPasswordForm as NewPasswordFormType, ValidateToken } from "../../types";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
+import { useMutation } from "@tanstack/react-query";
+import { updatePassword } from "../../api/AuthAPI";
+import { toast } from "react-toastify";
 
-export default function NewPasswordForm() {
+
+
+export default function NewPasswordForm({ token } : {token: ValidateToken["token"]}) {
    const [allFieldsFill, setAllFieldsFill] = useState(false);
 
    const navigate = useNavigate();
@@ -18,13 +23,34 @@ export default function NewPasswordForm() {
       register,
       handleSubmit,
       watch,
-      reset,
       formState: { errors },
    } = useForm<NewPasswordFormType>({ defaultValues: initialValues });
 
    const password = watch("password");
 
-   const handleRegister = () => {};
+   const { mutate } = useMutation({
+      mutationFn: updatePassword,
+      onError: (error) => {
+         error.message === "Invalid Token" && toast.error("Token inválido");
+      },
+      onSuccess: (data) => {
+         data === "Password succesfully updated. Reditecting..." &&
+            toast.success(
+               "Contraseña modificada correctamente. Redirigiendo..."
+            )
+         setTimeout(() => {
+            navigate('/auth/login')
+         }, 4000)
+      },
+   });
+
+   const handleUpdatePassword = (password : NewPasswordFormType) => {
+      const data = {
+         password, 
+         token
+      }
+      mutate(data)
+   };
 
    useEffect(() => {
       if (
@@ -40,7 +66,7 @@ export default function NewPasswordForm() {
    return (
       <>
          <form
-            onSubmit={handleSubmit(handleRegister)}
+            onSubmit={handleSubmit(handleUpdatePassword)}
             className="space-y-7 px-10 py-4"
             noValidate
          >
@@ -112,20 +138,14 @@ export default function NewPasswordForm() {
             />
          </form>
 
-         <nav className="flex flex-col px-10 text-center">
+         {/* <nav className="flex flex-col px-10 text-center">
             <p className="text-sm">
                ¿Ya tienes cuenta?{" "}
                <Link to={"/auth/login"} className="text-purple-500">
                   Iniciar sesión
                </Link>
             </p>
-            <p className="text-sm">
-               ¿Olvidaste tu contraseña?{" "}
-               <Link to={"/auth/forgot-password"} className="text-purple-500">
-                  Reestablecer
-               </Link>
-            </p>
-         </nav>
+         </nav> */}
       </>
    );
 }
