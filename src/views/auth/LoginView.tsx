@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { UserLoginForm } from "../../types";
@@ -9,6 +9,8 @@ import { logIn } from "../../api/AuthAPI";
 
 export default function LoginView() {
    const [allFieldsFill, setAllFieldsFill] = useState(true);
+
+   const navigate = useNavigate()
 
    const initialValues: UserLoginForm = {
       email: "",
@@ -34,7 +36,7 @@ export default function LoginView() {
             toast.error("Contraseña Incorrecta");
       },
       onSuccess: () => {
-         
+         navigate('/')
       },
    });
 

@@ -2,9 +2,9 @@ import { isAxiosError } from "axios";
 import api from "../lib/axios";
 import { Project, ProjectFormData, dashboardProjectSchema } from "../types";
 
-export async function createProject(fromData: ProjectFormData) {
+export async function createProject(formData: ProjectFormData) {
    try {
-      const { data } = await api.post("/projects", fromData);
+      const { data } = await api.post("/projects", formData);
       return data;
    } catch (error) {
       if(isAxiosError(error) && error.response){
