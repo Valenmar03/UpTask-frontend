@@ -33,8 +33,8 @@ export default function LoginView() {
          error.message === "Password is not correct" &&
             toast.error("Contraseña Incorrecta");
       },
-      onSuccess: (data) => {
-         data === "User authenticated" && toast.success("Ingresando...");
+      onSuccess: () => {
+         
       },
    });
 
