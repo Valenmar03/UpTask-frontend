@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../api/ProjectAPI";
-import Spinner from "../components/Spinner";
 import DashboardItem from "../components/projects/DashboardItem";
 import Modal from "../components/Modal";
 import CreateProject from "../components/projects/CreateProject";
@@ -70,6 +69,7 @@ export default function DashboardView() {
          <div className="w-full h-full">
             {isLoading ? (
                <ul className="mt-10 divide-y-2 divide-gray-200 dark:divide-neutral-800">
+                  <ProjectsItemsLoading />
                   <ProjectsItemsLoading />
                   <ProjectsItemsLoading />
                </ul>
