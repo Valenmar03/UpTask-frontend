@@ -18,6 +18,15 @@ export type ConfirmToken = Pick<Auth, 'token' >
 export type ValidateToken = Pick<Auth, 'token' >
 
 
+export const userSchema = authSchema.pick({
+   name: true, 
+   email: true
+}).extend({
+   _id: z.string()
+})
+export type User = z.infer<typeof userSchema>
+
+
 export const taskStatusSchema = z.enum([
    "pending",
    "onHold",

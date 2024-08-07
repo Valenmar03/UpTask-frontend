@@ -7,6 +7,7 @@ import {
    RequestConfirmationCodeForm,
    UserLoginForm,
    UserRegisterForm,
+   userSchema,
    ValidateToken,
 } from "../types";
 
@@ -102,7 +103,10 @@ export async function updatePassword({password,token,}: {password: NewPasswordFo
 export async function getUserAuthenticated(){
    try {
       const { data } = await api.get('/auth/user')
-      return data
+      const response = userSchema.safeParse(data)
+      if(response.success){
+         return response.data
+      }
    } catch (error) {
       if (isAxiosError(error) && error.response) {
          throw new Error(error.response.data.error);
