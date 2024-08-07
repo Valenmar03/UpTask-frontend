@@ -36,7 +36,9 @@ export default function LoginView() {
             toast.error("Contraseña Incorrecta");
       },
       onSuccess: () => {
-         navigate('/')
+         setTimeout(() => {
+            navigate('/')
+         }, 1500);
       },
    });
 
