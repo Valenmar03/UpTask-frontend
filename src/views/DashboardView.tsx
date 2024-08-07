@@ -41,14 +41,14 @@ export default function DashboardView() {
          {show && (
             <Modal animateModal={animateModal} closeModal={closeModal}>
                <div
-                  className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+                  className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 rounded-md transition-all ease-in duration-300 mx-auto sm:my-32 "
                   onClick={(e) => e.stopPropagation()}
                >
                   <CreateProject />
                </div>
             </Modal>
          )}
-         <div className="flex flex-col items-center md:flex-row md:justify-between">
+         <div className={`flex flex-col items-center md:flex-row md:justify-between`}>
             <div className="flex flex-col items-center">
                <h1 className="text-4xl font-bold">Mis Proyectos</h1>
                <p className="text-lg text-gray-800 dark:text-gray-300">

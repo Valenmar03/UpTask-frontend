@@ -64,7 +64,7 @@ export default function AppLayout() {
                         onClick={handleChangeTheme}
                      />
                   )}
-                  <NavbarMenu />
+                  <NavbarMenu user={data}/>
                </div>
             </div>
          </header>
