@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
-import { Outlet } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { Navigate, Outlet } from "react-router-dom";
 import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-
 import Logo from "../components/Logo";
 import NavbarMenu from "../components/NavbarMenu";
+import { useAuth } from "../hooks/useAuth";
+import Spinner from "../components/Spinner";
 
 export default function AppLayout() {
+   const { data, isError, isLoading } = useAuth();
+
    const [theme, setTheme] = useState(() => {
       const themeLS = localStorage.getItem("theme");
-      if(themeLS){
-         return themeLS
+      if (themeLS) {
+         return themeLS;
       }
       if (window.matchMedia("(prefers-color-scheme:dark").matches) {
          return "dark";
@@ -29,15 +32,16 @@ export default function AppLayout() {
    }, [theme]);
 
    const handleChangeTheme = () => {
-      if(theme === "light"){
-         setTheme("dark")
+      if (theme === "light") {
+         setTheme("dark");
          localStorage.setItem("theme", "dark");
-         return
+         return;
       }
       setTheme("light");
       localStorage.setItem("theme", "light");
    };
-
+   if (isLoading) return <Spinner></Spinner>;
+   if (isError) return <Navigate to="/auth/login" />;
    return (
       <>
          <header className="bg-neutral-800 py-5 border-b border-b-neutral-700 px-3">
@@ -74,10 +78,7 @@ export default function AppLayout() {
             </p>
          </footer>
 
-         <ToastContainer 
-            pauseOnFocusLoss={false}
-            pauseOnHover={false}
-         />
+         <ToastContainer pauseOnFocusLoss={false} pauseOnHover={false} />
       </>
    );
 }
