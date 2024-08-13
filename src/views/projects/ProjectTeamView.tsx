@@ -1,9 +1,9 @@
-import TeamMembersHeader from "../../components/projects/TeamMembersHeader";
+import TeamMembersHeader from "../../components/projects/Team/TeamMembersHeader";
 
 export default function ProjectTeamView() {
   return (
-    <div>
+    <>
       <TeamMembersHeader/>
-    </div>
+    </>
   )
 }
