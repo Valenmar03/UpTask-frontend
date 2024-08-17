@@ -6,6 +6,7 @@ import { SunIcon, MoonIcon } from "@heroicons/react/20/solid";
 import { ToastContainer } from "react-toastify";
 
 export default function AuthLayout() {
+
    const [theme, setTheme] = useState(() => {
       const themeLS = localStorage.getItem("theme");
       if (themeLS) {
@@ -34,7 +35,6 @@ export default function AuthLayout() {
       setTheme("light");
       localStorage.setItem("theme", "light");
    };
-
    return (
       <>
          <header className="bg-neutral-800 py-5 border-b border-b-neutral-700 px-3">
@@ -75,10 +75,7 @@ export default function AuthLayout() {
             </p>
          </footer>
 
-         <ToastContainer 
-            pauseOnFocusLoss={false}
-            pauseOnHover={false}
-         />
+         <ToastContainer pauseOnFocusLoss={false} pauseOnHover={false} />
       </>
    );
 }
