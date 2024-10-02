@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../api/ProjectAPI";
 import DashboardItem from "../components/projects/DashboardItem";
@@ -82,12 +82,12 @@ export default function DashboardView() {
             ) : (
                <p className="text-lg text-center py-20 ">
                   No tienes proyectos.{" "}
-                  <Link
-                     to={"/projects/create"}
+                  <button
+                     onClick={() => navigate("?newProject=true")}
                      className=" font-bold text-purple-700 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-400"
                   >
                      Crea uno
-                  </Link>
+                  </button>
                </p>
             )}
          </div>
