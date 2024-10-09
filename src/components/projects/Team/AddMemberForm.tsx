@@ -37,6 +37,11 @@ export default function AddMemberForm() {
       console.log(mutation)
    };
 
+   const resetData = () => {
+      reset(),
+      mutation.reset()
+   }
+
    useEffect(() => {
       if (errors.email?.type === 'required') {
          setAllFieldsFill(false);
@@ -91,7 +96,7 @@ export default function AddMemberForm() {
          <div className="my-8">
             {mutation.isPending && <p className="text-center">Cargando...</p>}
             {mutation.error && <p className="text-center">{mutation.error.message === 'User not found' && 'Usuario no encontrado'}</p>}
-            {mutation.data && <SearchResult user={mutation.data.data}/>}
+            {mutation.data && <SearchResult user={mutation.data.data} reset={resetData}/>}
          </div>
       </>
    );
