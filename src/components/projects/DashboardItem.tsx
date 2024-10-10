@@ -57,7 +57,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                      <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">
                         Cliente: {`${project.clientName}`}
                      </p>
-                     <div className="flex mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
+                     <div className="flex flex-col space-y-3 xl:px-10 mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
                         <button
                            className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
                            onClick={() => mutate(project._id)}
@@ -65,7 +65,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                            Eliminar
                         </button>
                         <button
-                           className="py-3 px-10 text-gray-800 border-2 border-gray-300 dark:border-neutral-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
+                           className="py-3 px-10 text-gray-800 dark:border-neutral-600 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-neutral-600 duration-200"
                            onClick={closeModal}
                         >
                            Cancelar

@@ -36,6 +36,7 @@ export default function DashboardView() {
       queryFn: getAllProjects,
    });
 
+   console.log(data)
    return (
       <>
          {show && (
