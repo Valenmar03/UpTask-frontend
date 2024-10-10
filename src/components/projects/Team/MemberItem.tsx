@@ -3,6 +3,10 @@ import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Fragment, useState } from 'react'
 import Modal from '../../Modal';
 import { TeamMember } from '../../../types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteMemberFromTeam } from '../../../api/TeamAPI';
+import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
 type MemberItemProps = {
     member: TeamMember
@@ -11,6 +15,9 @@ type MemberItemProps = {
 export default function MemberItem({ member } : MemberItemProps) {
     const [modal, setModal] = useState(false);
    const [animateModal, setAnimateModal] = useState(false);
+   const params = useParams()
+   const projectId = params.projectId!
+   const queryClient = useQueryClient()
 
    const openModal = () => {
       setModal(true);
@@ -25,6 +32,18 @@ export default function MemberItem({ member } : MemberItemProps) {
             setModal(false);
       }, 200);
    };
+
+   const { mutate } = useMutation({
+        mutationFn: deleteMemberFromTeam,
+        onError: (error) =>{
+            toast.error(error.message === 'The User is not a member of team' && 'El usuario no pertenece al equipo')
+        },
+        onSuccess: () => {
+            toast.success('Colaborador eliminado correctamente')
+            queryClient.invalidateQueries({queryKey: ['projectTeam']})
+        }
+   })
+
    return (
     <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
        {modal && (
@@ -43,7 +62,7 @@ export default function MemberItem({ member } : MemberItemProps) {
                    <div className="flex flex-col space-y-3 xl:px-10 mx-auto mt-7 gap-3 md:gap-0 w-full justify-evenly">
                       <button
                          className="py-3 px-10 text-white bg-red-600 rounded-md hover:bg-red-500 duration-200"
-                         //onClick={() => mutate(project._id)}
+                         onClick={() => mutate({projectId, userId: member._id})}
                       >
                          Eliminar
                       </button>
