@@ -3,7 +3,7 @@ import TeamMembersHeader from "../../components/projects/Team/TeamMembersHeader"
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/Modal";
 import AddMemberModal from "../../components/projects/Team/AddMemberModal";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProjectTeam } from "../../api/TeamAPI";
 import ProjectsItemsLoading from "../../components/Loadings/ProjectsItemsLoading";
 import MemberItem from "../../components/projects/Team/MemberItem";
@@ -18,6 +18,7 @@ export default function ProjectTeamView() {
    const show = modalProject ? true : false;
    const params = useParams();
    const projectId = params.projectId!;
+   const queryClient = useQueryClient()
 
    useEffect(() => {
       if (show) {
@@ -39,6 +40,9 @@ export default function ProjectTeamView() {
       queryFn: () => getProjectTeam(projectId),
       retry: false,
    });
+
+   queryClient.invalidateQueries({queryKey: ['projectTeam']})
+
 
    if(isError) return <Navigate to={'/404'}/>
    return (
