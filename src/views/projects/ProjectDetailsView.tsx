@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import AddTask from "../../components/tasks/AddTask";
 import ProjectDetailsHeader from "../../components/projects/ProjectDetailsHeader";
 import TaskList from "../../components/tasks/TaskList";
 import DetailsTaskModal from "../../components/tasks/DetailsTaskModal";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function ProjectDetailsView() {
    const [animateModal, setAnimateModal] = useState(false);
@@ -27,7 +28,6 @@ export default function ProjectDetailsView() {
       queryFn: () => getProjectById(projectId),
       retry: false,
    });
-
    useEffect(() => {
       if (show) {
          setTimeout(() => {
@@ -43,6 +43,10 @@ export default function ProjectDetailsView() {
          navigate("", { replace: true });
       }, 300);
    };
+
+   const { data: user } = useAuth()
+
+   const canEdit = useMemo(() => data?.manager === user?._id, [data, user])
 
    if (isLoading) return <Spinner></Spinner>;
    if (isError) return <Navigate to={"/404"} />;
@@ -60,6 +64,7 @@ export default function ProjectDetailsView() {
                            <AddTask data={data}/>
                         ) : (
                            <DetailsTaskModal
+                              canEdit={canEdit}
                            />
                         )
                      }

@@ -5,7 +5,7 @@ import DetailsTask from "./DetailsTask";
 import Spinner from "../Spinner";
 import { toast } from "react-toastify";
 
-export default function DetailsTaskModal() {
+export default function DetailsTaskModal({canEdit} : {canEdit: boolean} ) {
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
    const taskId = queryParams.get("taskId")!;
@@ -30,6 +30,6 @@ export default function DetailsTaskModal() {
    if(isLoading) return <Spinner></Spinner>
    if (data) 
         return (
-            <DetailsTask data={data} />
+            <DetailsTask data={data} canEdit={canEdit}/>
         );
 }
