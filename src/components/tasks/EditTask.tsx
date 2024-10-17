@@ -32,7 +32,7 @@ export default function EditTask({ data, setEditTask }: EditTaskProps) {
    const { mutate } = useMutation({
       mutationFn: updateTask,
       onError: () => {
-         toast.error("Error editando tarea");
+         toast.error("Acción no válida");
       },
       onSuccess: () => {
          toast.success("Tarea editada correctamente");

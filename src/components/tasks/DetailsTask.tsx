@@ -22,7 +22,7 @@ export default function DetailsTask({ data }: { data: Task }) {
    const { mutate } = useMutation({
       mutationFn: deleteTask,
       onError: () => {
-         toast.error("Error eliminando tarea");
+         toast.error("Acción no válida");
       },
       onSuccess: () => {
          toast.success("Tarea Eliminada Correctamente");
