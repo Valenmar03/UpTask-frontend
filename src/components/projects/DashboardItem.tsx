@@ -39,8 +39,7 @@ export default function DashboardItem({ project }: { project: Project }) {
          queryClient.invalidateQueries({ queryKey: ["projects"] }); // Refrescar datos
       },
    });
-   const { data: user } = useAuth()
-
+   const { data: user } = useAuth();
 
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
@@ -77,10 +76,20 @@ export default function DashboardItem({ project }: { project: Project }) {
                </div>
             </Modal>
          )}
-         <div className="flex flex-col">
+         <div>
+            {user?._id === project.manager ? (
+               <p className="inline text-xs font-semibold px-4 py-1 uppercase bg-green-300 text-green-700 border border-green-700 rounded-full">
+                  Manager
+               </p>
+            ) : (
+               <p className="inline text-xs font-semibold px-4 py-1 uppercase bg-blue-300 text-blue-700 border border-blue-700 rounded-full">
+                  Colaborador
+               </p>
+            )}
+
             <Link
                to={`/projects/${project._id}`}
-               className="text-3xl mb-2 font-semibold hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300"
+               className="text-3xl my-2 font-semibold flex items-center hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300"
             >
                {project.projectName}
             </Link>
@@ -114,7 +123,9 @@ export default function DashboardItem({ project }: { project: Project }) {
                      <Menu.Item>
                         <Link
                            to={`/projects/${project._id}`}
-                           className={`block px-3 py-1 text-sm leading-6 ${user?._id !== project.manager && 'rounded-b-md'} rounded-t-md dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600 dark:hover:text-white duration-200`}
+                           className={`block px-3 py-1 text-sm leading-6 ${
+                              user?._id !== project.manager && "rounded-b-md"
+                           } rounded-t-md dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600 dark:hover:text-white duration-200`}
                         >
                            Ver Proyecto
                         </Link>
