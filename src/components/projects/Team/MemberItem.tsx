@@ -2,19 +2,19 @@ import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Fragment, useState } from "react";
 import Modal from "../../Modal";
-import { Project, TeamMember } from "../../../types";
+import { Project, TeamMember, User } from "../../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteMemberFromTeam } from "../../../api/TeamAPI";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
 
 type MemberItemProps = {
    member: TeamMember;
-   managerId: Project['manager'];
+   managerId: Project["manager"];
+   userId: User['_id']
 };
 
-export default function MemberItem({ member, managerId }: MemberItemProps) {
+export default function MemberItem({ member, userId, managerId }: MemberItemProps) {
    const [modal, setModal] = useState(false);
    const [animateModal, setAnimateModal] = useState(false);
    const params = useParams();
@@ -49,7 +49,6 @@ export default function MemberItem({ member, managerId }: MemberItemProps) {
       },
    });
 
-   const { data: user } = useAuth();
 
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
@@ -89,7 +88,7 @@ export default function MemberItem({ member, managerId }: MemberItemProps) {
          <div className="flex flex-col">
             <p className="text-3xl mb-2 font-semibold hover:translate-x-5 hover:scale-110 hover:opacity-95 duration-300 flex items-center">
                {member.name}{" "}
-               {user?._id === member._id && (
+               {userId === member._id && (
                   <span className="text-sm ml-2 px-4 bg-gray-300 dark:bg-neutral-600 rounded-full">
                      Tú
                   </span>
@@ -103,38 +102,40 @@ export default function MemberItem({ member, managerId }: MemberItemProps) {
             <p className="text-gray-700 dark:text-gray-300">{member.email}</p>
          </div>
 
-         <div className="opacity-0 group-hover:opacity-100">
-            <Menu as="div" className="relative flex-none">
-               <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
-                  <span className="sr-only">opciones</span>
-                  <EllipsisVerticalIcon
-                     className="h-9 w-9 dark:text-gray-300 dark:hover:text-white hover:scale-110 duration-150"
-                     aria-hidden="true"
-                  />
-               </Menu.Button>
-               <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-               >
-                  <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none dark:bg-neutral-800">
-                     <Menu.Item>
-                        <button
-                           type="button"
-                           className="block px-3 py-1 text-sm leading-6 rounded-b-md rounded-t-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
-                           onClick={openModal}
-                        >
-                           Eliminar del Equipo
-                        </button>
-                     </Menu.Item>
-                  </Menu.Items>
-               </Transition>
-            </Menu>
-         </div>
+         {managerId === userId && (
+            <div className="opacity-0 group-hover:opacity-100">
+               <Menu as="div" className="relative flex-none">
+                  <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+                     <span className="sr-only">opciones</span>
+                     <EllipsisVerticalIcon
+                        className="h-9 w-9 dark:text-gray-300 dark:hover:text-white hover:scale-110 duration-150"
+                        aria-hidden="true"
+                     />
+                  </Menu.Button>
+                  <Transition
+                     as={Fragment}
+                     enter="transition ease-out duration-100"
+                     enterFrom="transform opacity-0 scale-95"
+                     enterTo="transform opacity-100 scale-100"
+                     leave="transition ease-in duration-75"
+                     leaveFrom="transform opacity-100 scale-100"
+                     leaveTo="transform opacity-0 scale-95"
+                  >
+                     <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none dark:bg-neutral-800">
+                        <Menu.Item>
+                           <button
+                              type="button"
+                              className="block px-3 py-1 text-sm leading-6 rounded-b-md rounded-t-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
+                              onClick={openModal}
+                           >
+                              Eliminar del Equipo
+                           </button>
+                        </Menu.Item>
+                     </Menu.Items>
+                  </Transition>
+               </Menu>
+            </div>
+         )}
       </li>
    );
 }

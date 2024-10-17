@@ -14,6 +14,7 @@ import ProjectsItemsLoading from "../../components/Loadings/ProjectsItemsLoading
 import MemberItem from "../../components/projects/Team/MemberItem";
 import { getProjectById } from "../../api/ProjectAPI";
 import { Project } from "../../types";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function ProjectTeamView() {
    const [animateModal, setAnimateModal] = useState(false);
@@ -56,12 +57,14 @@ export default function ProjectTeamView() {
 
    queryClient.invalidateQueries({ queryKey: ["projectTeam"] });
 
+
+   const { data: user } = useAuth();
    const managerId : Project['manager'] = useMemo(() => project?.manager, [project])
 
    if (isError) return <Navigate to={"/404"} />;
-   return (
+   if(user)return (
       <>
-         <TeamMembersHeader />
+         <TeamMembersHeader managerId={managerId} userId={user._id}/>
          {show && (
             <Modal animateModal={animateModal} closeModal={closeModal}>
                <div
@@ -80,7 +83,7 @@ export default function ProjectTeamView() {
          ) : member && member.length ? (
             <ul className="mt-10 divide-y-2 divide-gray-200 dark:divide-neutral-800">
                {member.map((member) => (
-                  <MemberItem key={member._id} member={member} managerId={managerId}/>
+                  <MemberItem key={member._id} member={member} userId={user._id} managerId={managerId}/>
                ))}
             </ul>
          ) : (

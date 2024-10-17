@@ -29,21 +29,23 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
                      <h1 className="text-3xl md:text-4xl font-bold">
                         {data.projectName}
                      </h1>
-                     <Link
-                        to={`/projects/${data._id}/edit`}
-                        className="relative group"
-                     >
-                        <PencilSquareIcon className="size-6 cursor-pointer hover:scale-125 duration-200 text-purple-500 md:ml-2" />
-                        <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
-                           <div className="ease-in-out duration-300 translate-x-4 pointer-events-none transition-all group-hover:translate-x-6 absolute left-1/2 z-50 flex -translate-y-full flex-col items-center rounded-sm text-center text-sm text-slate-300 before:top-[50%]">
-                              <div className="rounded-md bg-black py-2 px-3">
-                                 <p className="whitespace-nowrap">
-                                    Editar Proyecto
-                                 </p>
+                     {isManager(user._id, data.manager) && (
+                        <Link
+                           to={`/projects/${data._id}/edit`}
+                           className="relative group"
+                        >
+                           <PencilSquareIcon className="size-6 cursor-pointer hover:scale-125 duration-200 text-purple-500 md:ml-2" />
+                           <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
+                              <div className="ease-in-out duration-300 translate-x-4 pointer-events-none transition-all group-hover:translate-x-6 absolute left-1/2 z-50 flex -translate-y-full flex-col items-center rounded-sm text-center text-sm text-slate-300 before:top-[50%]">
+                                 <div className="rounded-md bg-black py-2 px-3">
+                                    <p className="whitespace-nowrap">
+                                       Editar Proyecto
+                                    </p>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                     </Link>
+                        </Link>
+                     )}
                   </div>
                   <p className="text-xl text-gray-800 dark:text-gray-300 mx-auto">
                      {data.description}
@@ -71,25 +73,27 @@ export default function ProjectDetailsHeader({ data }: { data: Project }) {
                   leaveTo="transform opacity-0 scale-95"
                >
                   <Menu.Items className="absolute -right-6 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 focus:outline-none dark:bg-neutral-700">
-                     {isManager(user._id, data.manager) && (
-                        <Menu.Item>
-                           <Link
-                              to={"team"}
-                              className="w-full text-left p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600 rounded-t-md flex gap-2"
-                           >
-                              <UserIcon className="size-6" />
-                              Colaboradores
-                           </Link>
-                        </Menu.Item>
-                     )}
+                     <Menu.Item>
+                        <Link
+                           to={"team"}
+                           className="w-full text-left p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600 rounded-t-md flex gap-2"
+                        >
+                           <UserIcon className="size-6" />
+                           Colaboradores
+                        </Link>
+                     </Menu.Item>
                      <Menu.Item>
                         <button
                            onClick={() => navigate("?newTask=true")}
-                           className={`w-full text-left p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600 ${isManager(user._id, data.manager) ? 'rounded-b-md' : 'rounded-md'} flex gap-2`}
+                           className={`w-full text-left p-2 hover:bg-neutral-300 dark:hover:bg-neutral-600 ${
+                              isManager(user._id, data.manager)
+                                 ? "rounded-b-md"
+                                 : "rounded-md"
+                           } flex gap-2`}
                         >
                            <DocumentPlusIcon className="size-6" />
                            Agregar Tarea
-                        </button> 
+                        </button>
                      </Menu.Item>
                   </Menu.Items>
                </Transition>

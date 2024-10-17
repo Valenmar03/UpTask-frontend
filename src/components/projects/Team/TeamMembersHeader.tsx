@@ -1,7 +1,16 @@
 import { ChevronLeftIcon, UserPlusIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Project, User } from "../../../types";
 
-export default function TeamMembersHeader() {
+type TeamMembersHeaderProps = {
+   managerId: Project["manager"];
+   userId: User["_id"];
+};
+
+export default function TeamMembersHeader({
+   managerId,
+   userId,
+}: TeamMembersHeaderProps) {
    const navigate = useNavigate();
    const { projectId } = useParams();
    return (
@@ -19,19 +28,21 @@ export default function TeamMembersHeader() {
             </div>
          </div>
 
-         <button
-            className="text-white bg-purple-500 py-2 px-8 md:p-2 rounded-full hover:bg-purple-600 duration-200 text-xl group relative flex"
-            onClick={() => navigate("?addMember=true")}
-         >
-            <UserPlusIcon className=" size-7 duration-200" />
-            <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
-               <div className="ease-in-out duration-500 -translate-y-4 pointer-events-none transition-all group-hover:-translate-y-16 absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center rounded-sm text-center text-sm text-slate-300 before:-top-2">
-                  <div className="rounded-md bg-black py-2 px-3">
-                     <p className="whitespace-nowrap">Agregar Colaborador</p>
+         {managerId === userId && (
+            <button
+               className="text-white bg-purple-500 py-2 px-8 md:p-2 rounded-full hover:bg-purple-600 duration-200 text-xl group relative flex"
+               onClick={() => navigate("?addMember=true")}
+            >
+               <UserPlusIcon className=" size-7 duration-200" />
+               <div className="ease-in duration-300 opacity-0 group-hover:block group-hover:opacity-100 transition-all">
+                  <div className="ease-in-out duration-500 -translate-y-4 pointer-events-none transition-all group-hover:-translate-y-16 absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center rounded-sm text-center text-sm text-slate-300 before:-top-2">
+                     <div className="rounded-md bg-black py-2 px-3">
+                        <p className="whitespace-nowrap">Agregar Colaborador</p>
+                     </div>
                   </div>
                </div>
-            </div>
-         </button>
+            </button>
+         )}
       </div>
    );
 }
