@@ -12,7 +12,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProjectTeam } from "../../api/TeamAPI";
 import ProjectsItemsLoading from "../../components/Loadings/ProjectsItemsLoading";
 import MemberItem from "../../components/projects/Team/MemberItem";
-import { useAuth } from "../../hooks/useAuth";
 import { getProjectById } from "../../api/ProjectAPI";
 import { Project } from "../../types";
 
