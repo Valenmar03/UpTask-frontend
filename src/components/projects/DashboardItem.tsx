@@ -114,7 +114,7 @@ export default function DashboardItem({ project }: { project: Project }) {
                      <Menu.Item>
                         <Link
                            to={`/projects/${project._id}`}
-                           className="block px-3 py-1 text-sm leading-6 rounded-t-md dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600 dark:hover:text-white duration-200"
+                           className={`block px-3 py-1 text-sm leading-6 ${user?._id !== project.manager && 'rounded-b-md'} rounded-t-md dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600 dark:hover:text-white duration-200`}
                         >
                            Ver Proyecto
                         </Link>

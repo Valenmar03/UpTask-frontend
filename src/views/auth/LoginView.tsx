@@ -33,7 +33,7 @@ export default function LoginView() {
                "El usuario no esta confirmado, enviamos un codigo de confirmacion a tu correo. Puedes cerrar esta ventana"
             );
          error.message === "Password is not correct" &&
-            toast.error("Contraseña Incorrecta");
+            toast.error("Correo o Contraseña Incorrectos");
       },
       onSuccess: () => {
          setTimeout(() => {
