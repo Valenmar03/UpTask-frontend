@@ -31,12 +31,11 @@ export default function DashboardView() {
       }, 300);
    };
 
+
    const { data, isLoading } = useQuery({
       queryKey: ["projects"],
       queryFn: getAllProjects,
-   });
-
-   console.log(data)
+   })
    return (
       <>
          {show && (

@@ -3,11 +3,11 @@ import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { Project } from "../../types";
 import { deleteProject } from "../../api/ProjectAPI";
 import { toast } from "react-toastify";
 import Modal from "../Modal";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function DashboardItem({ project }: { project: Project }) {
    const [modal, setModal] = useState(false);
@@ -22,8 +22,8 @@ export default function DashboardItem({ project }: { project: Project }) {
 
    const closeModal = () => {
       setAnimateModal(false);
-         setTimeout(() => {
-            setModal(false);
+      setTimeout(() => {
+         setModal(false);
       }, 200);
    };
 
@@ -39,14 +39,16 @@ export default function DashboardItem({ project }: { project: Project }) {
          queryClient.invalidateQueries({ queryKey: ["projects"] }); // Refrescar datos
       },
    });
+   const { data: user } = useAuth()
+
 
    return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
             <Modal animateModal={animateModal} closeModal={closeModal}>
-               <div 
+               <div
                   className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-1/4 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
-                  onClick={e => e.stopPropagation()}
+                  onClick={(e) => e.stopPropagation()}
                >
                   <div className="text-center text-balance w-full mx-auto">
                      <h2 className="text-xl mt-3">
@@ -117,23 +119,27 @@ export default function DashboardItem({ project }: { project: Project }) {
                            Ver Proyecto
                         </Link>
                      </Menu.Item>
-                     <Menu.Item>
-                        <Link
-                           to={`/projects/${project._id}/edit`}
-                           className="block px-3 py-1 text-sm leading-6 text-blue-500 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-600 dark:hover:text-white duration-200"
-                        >
-                           Editar Proyecto
-                        </Link>
-                     </Menu.Item>
-                     <Menu.Item>
-                        <button
-                           type="button"
-                           className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
-                           onClick={openModal}
-                        >
-                           Eliminar Proyecto
-                        </button>
-                     </Menu.Item>
+                     {user?._id === project.manager && (
+                        <>
+                           <Menu.Item>
+                              <Link
+                                 to={`/projects/${project._id}/edit`}
+                                 className="block px-3 py-1 text-sm leading-6 text-blue-500 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-600 dark:hover:text-white duration-200"
+                              >
+                                 Editar Proyecto
+                              </Link>
+                           </Menu.Item>
+                           <Menu.Item>
+                              <button
+                                 type="button"
+                                 className="block px-3 py-1 text-sm leading-6 rounded-b-md w-full text-left text-red-500 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-600 dark:hover:text-white duration-200"
+                                 onClick={openModal}
+                              >
+                                 Eliminar Proyecto
+                              </button>
+                           </Menu.Item>
+                        </>
+                     )}
                   </Menu.Items>
                </Transition>
             </Menu>
