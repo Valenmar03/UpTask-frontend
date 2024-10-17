@@ -8,6 +8,7 @@ import { deleteProject } from "../../api/ProjectAPI";
 import { toast } from "react-toastify";
 import Modal from "../Modal";
 import { useAuth } from "../../hooks/useAuth";
+import { isManager } from "../../utils/policies";
 
 export default function DashboardItem({ project }: { project: Project }) {
    const [modal, setModal] = useState(false);
@@ -41,7 +42,7 @@ export default function DashboardItem({ project }: { project: Project }) {
    });
    const { data: user } = useAuth();
 
-   return (
+   if(user) return (
       <li className="px-5 py-8 shadow-xl bg-white dark:bg-neutral-700 dark:shadow-neutral-900 flex justify-between group">
          {modal && (
             <Modal animateModal={animateModal} closeModal={closeModal}>
@@ -77,7 +78,7 @@ export default function DashboardItem({ project }: { project: Project }) {
             </Modal>
          )}
          <div>
-            {user?._id === project.manager ? (
+            {isManager(user._id, project.manager) ? (
                <p className="inline text-xs font-semibold px-4 py-1 uppercase bg-green-300 text-green-700 border border-green-700 rounded-full">
                   Manager
                </p>
