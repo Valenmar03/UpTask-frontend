@@ -102,7 +102,7 @@ export default function MemberItem({ member, userId, managerId }: MemberItemProp
             <p className="text-gray-700 dark:text-gray-300">{member.email}</p>
          </div>
 
-         {managerId === userId && (
+         {managerId === userId && userId !== member._id && (
             <div className="opacity-0 group-hover:opacity-100">
                <Menu as="div" className="relative flex-none">
                   <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
