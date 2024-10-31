@@ -53,7 +53,6 @@ type StatusBadgeProps = {
 export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
    const theme = localStorage.getItem("theme");
 
-   const navigate = useNavigate()
 
    const queryClient = useQueryClient()
    const { mutate } = useMutation({
@@ -65,7 +64,6 @@ export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
          toast.success('Estado modificado correctamente')
          queryClient.invalidateQueries({queryKey: ['project', idsData.projectId]})
          queryClient.invalidateQueries({queryKey: ['task', idsData.taskId]})
-         navigate("", { replace: true });
       }
    })
 
