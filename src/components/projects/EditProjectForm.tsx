@@ -50,7 +50,6 @@ export default function EditProjectForm({ data }: EditProjectFormProps) {
          formData,
          projectId,
       };
-      console.log(formData);
       mutate(toUpdateData);
    };
 

@@ -34,7 +34,6 @@ export default function AddMemberForm() {
          formData
       }
       mutation.mutate(data);
-      console.log(mutation)
    };
 
    const resetData = () => {
@@ -50,7 +49,6 @@ export default function AddMemberForm() {
       setAllFieldsFill(true);
    }, [errors.email]);
    
-   console.log(errors)
    return (
       <>
          <form
