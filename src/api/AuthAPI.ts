@@ -101,7 +101,7 @@ export async function updatePassword({password,token,}: {password: NewPasswordFo
 
 export async function getUserAuthenticated(){
    try {
-      const { data } = await api.get('/auth/user')
+      const { data } = await api('/auth/user')
       const response = userSchema.safeParse(data)
       if(response.success){
          return response.data
