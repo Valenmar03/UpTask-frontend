@@ -3,7 +3,6 @@ import { statusTranslations } from "../../locales/es";
 import { changeStatus } from "../../api/TaskAPI";
 import { toast } from "react-toastify";
 import { TaskStatus } from "../../types";
-import { useNavigate } from "react-router-dom";
 
 type statusStyles = {
    bgColorDark: string;
