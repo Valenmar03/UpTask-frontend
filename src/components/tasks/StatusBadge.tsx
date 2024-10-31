@@ -3,46 +3,9 @@ import { statusTranslations } from "../../locales/es";
 import { changeStatus } from "../../api/TaskAPI";
 import { toast } from "react-toastify";
 import { TaskStatus } from "../../types";
+import { statusStyles } from "../../locales/StatusStyles";
 
-type statusStyles = {
-   bgColorDark: string;
-   textColorDark: string;
-   bgColorLight: string;
-   textColorLight: string;
-};
 
-const statusStyles: { [key: string]: statusStyles } = {
-   pending: {
-      bgColorDark: "bg-indigo-700",
-      textColorDark: "text-indigo-200",
-      bgColorLight: "bg-indigo-400",
-      textColorLight: "text-indigo-600",
-   },
-   onHold: {
-      bgColorDark: "bg-red-700",
-      textColorDark: "text-red-300",
-      bgColorLight: "bg-red-400",
-      textColorLight: "text-red-800",
-   },
-   inProgress: {
-      bgColorDark: "bg-blue-700",
-      textColorDark: "text-blue-300",
-      bgColorLight: "bg-blue-300",
-      textColorLight: "text-blue-700",
-   },
-   underReview: {
-      bgColorDark: "bg-orange-600",
-      textColorDark: "text-orange-300",
-      bgColorLight: "bg-orange-400",
-      textColorLight: "text-orange-700",
-   },
-   completed: {
-      bgColorDark: "bg-green-700",
-      textColorDark: "text-green-300",
-      bgColorLight: "bg-green-300",
-      textColorLight: "text-green-700",
-   },
-};
 
 type StatusBadgeProps = {
    status: string;
@@ -94,8 +57,12 @@ export default function StatusBadge({ status, idsData }: StatusBadgeProps) {
             <option
                key={key}
                value={key}
-               className={`font-bold ${statusStyles[key].textColorLight}
-               ${statusStyles[key].bgColorLight} `}
+               className={`font-bold 
+                  ${statusStyles[key].textColorLight}
+                  ${statusStyles[key].bgColorLight} 
+                  ${`dark:${statusStyles[key].bgColorDark}`} 
+                  ${`dark:${statusStyles[key].textColorDark}`}
+               `}
             >
                {value}
             </option>
