@@ -82,12 +82,18 @@ export default function DetailsTask({
                         {formatDate(data.createdAt)}
                      </span>
                   </p>
-                  <p>
-                     Ultima actualización el:{" "}
-                     <span className="font-bold">
-                        {formatDate(data.updatedAt)}
-                     </span>
-                  </p>
+                  {data.completedBy && (
+                     <p>
+                        Ultima actualización el:{" "}
+                        <span className="font-bold">
+                           {formatDate(data.updatedAt)}.
+                        </span>{" "}
+                        Por:{" "}
+                        <span className="font-bold">
+                           {data.completedBy?.name}.
+                        </span>
+                     </p>
+                  )}
                </div>
             </>
          )}

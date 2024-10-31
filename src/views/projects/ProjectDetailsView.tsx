@@ -44,9 +44,9 @@ export default function ProjectDetailsView() {
       }, 300);
    };
 
-   const { data: user } = useAuth()
+   const { data: user } = useAuth();
 
-   const canEdit = useMemo(() => data?.manager === user?._id, [data, user])
+   const canEdit = useMemo(() => data?.manager === user?._id, [data, user]);
 
    if (isLoading) return <Spinner></Spinner>;
    if (isError) return <Navigate to={"/404"} />;
@@ -55,20 +55,21 @@ export default function ProjectDetailsView() {
          <>
             {show && (
                <Modal animateModal={animateModal} closeModal={closeModal}>
-                  <div 
-                     className="bg-gray-100 dark:bg-neutral-800 w-10/12 lg:w-2/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
-                     onClick={e => e.stopPropagation()}
-                  >
-                     {
-                        modalCreateTask ? (
-                           <AddTask data={data}/>
-                        ) : (
-                           <DetailsTaskModal
-                              canEdit={canEdit}
-                           />
-                        )
-                     }
-                  </div>
+                  {modalCreateTask ? (
+                     <div
+                        className="bg-gray-100 dark:bg-neutral-800 w-10/12 xl:w-2/5 lg:w-3/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+                        onClick={(e) => e.stopPropagation()}
+                     >
+                        <AddTask data={data} />
+                     </div>
+                  ) : (
+                     <div
+                        className="bg-gray-100 dark:bg-neutral-800 w-10/12 xl:w-2/5 lg:w-3/5 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+                        onClick={(e) => e.stopPropagation()}
+                     >
+                        <DetailsTaskModal canEdit={canEdit} />
+                     </div>
+                  )}
                </Modal>
             )}
             <ProjectDetailsHeader data={data} />
