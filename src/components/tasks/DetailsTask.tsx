@@ -19,6 +19,7 @@ import { formatDate } from "../../utils/utils";
 import { Menu, Transition } from "@headlessui/react";
 import { statusTranslations } from "../../locales/es";
 import { statusStyles } from "../../locales/StatusStyles";
+import NotesPanel from "../notes/NotesPanel";
 
 export default function DetailsTask({
    data,
@@ -130,6 +131,9 @@ export default function DetailsTask({
                   </h3>
                   <p>{data.description}</p>
                </div>
+               <div className="px-10">
+                  <NotesPanel/>
+               </div>
                   {
                      showHistory && (
                      data.completedBy.length > 0 ? (
@@ -138,10 +142,7 @@ export default function DetailsTask({
                               <h4 className="ml-auto">Historial de cambios</h4>
                               <XMarkIcon className="size-4 ml-auto cursor-pointer" onClick={() => setShowHistory(false)}/>
                            </div>
-                              {/* ${statusStyles[change.status].bgColorLight} 
-                              ${`dark:${statusStyles[change.status].bgColorDark}`}  
-                              ${statusStyles[change.status].textColorLight} 
-                              ${`dark:${statusStyles[change.status].textColorDark}`}   */}
+
                            
                            <ul className="mt-3 bg-gray-200 dark:bg-neutral-700 mx-10 rounded-md">
                               {data.completedBy.map((change, index) => (
