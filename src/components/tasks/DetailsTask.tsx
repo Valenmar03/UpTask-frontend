@@ -146,7 +146,7 @@ export default function DetailsTask({
                            </div>
 
                            
-                           <ul className="mt-3 bg-gray-200 dark:bg-neutral-700 mx-10 rounded-md">
+                           <ul className="mt-3 bg-gray-200 dark:bg-neutral-700 mx-10 rounded-md max-h-32 overflow-y-auto">
                               {data.completedBy.map((change, index) => (
                                  <li key={index} className={`w-full flex justify-between py-1 px-24 hover:bg-gray-300 dark:hover:bg-neutral-600
                                  ${index === 0 && 'rounded-t-md'} 
