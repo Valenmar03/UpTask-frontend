@@ -25,7 +25,7 @@ export default function NotesPanel({notes} : NotesPanelProps) {
                     {addNote &&(
                         <AddNoteForm />
                     )}
-                    {notes.map(note => (
+                    {notes.slice().reverse().map(note => (
                         <NoteDetail
                             key={note._id}
                             note={note}

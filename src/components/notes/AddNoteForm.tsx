@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { NoteFormData } from "../../types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "../../api/NoteAPI";
 import { toast } from "react-toastify";
 import { useLocation, useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ export default function AddNoteForm() {
    const params = useParams()
    const location = useLocation()
    const queryParams = new URLSearchParams(location.search)
+   const queryClient = useQueryClient() 
 
    const projectId = params.projectId!
    const taskId = queryParams.get('taskId')!
@@ -31,6 +32,7 @@ export default function AddNoteForm() {
     },
     onSuccess: () => {
       reset()
+      queryClient.invalidateQueries({queryKey: ['task', taskId]})
     }
    })
 
