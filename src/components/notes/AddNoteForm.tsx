@@ -1,10 +1,21 @@
 import { useForm } from "react-hook-form";
 import { NoteFormData } from "../../types";
+import { useMutation } from "@tanstack/react-query";
+import { createNote } from "../../api/NoteAPI";
+import { toast } from "react-toastify";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function AddNoteForm() {
    const initialValues: NoteFormData = {
       content: "",
    };
+
+   const params = useParams()
+   const location = useLocation()
+   const queryParams = new URLSearchParams(location.search)
+
+   const projectId = params.projectId!
+   const taskId = queryParams.get('taskId')!
 
    const {
       register,
@@ -12,8 +23,18 @@ export default function AddNoteForm() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
+   const { mutate } = useMutation({
+    mutationFn: createNote,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      console.log(data)
+    }
+   })
+
    const handleAddNote = (formData: NoteFormData) => {
-    
+      mutate({projectId, taskId, formData})
    }
 
    return (
@@ -22,7 +43,7 @@ export default function AddNoteForm() {
             <input
                id="content"
                type="text"
-               className="bg-gray-200 dark:bg-neutral-700 rounded-md text-xl py-2 pl-2 col-span-8"
+               className="bg-gray-200 dark:bg-neutral-700 rounded-md py-2 pl-2 col-span-8"
                {...register("content", {
                   required: "La nota debe tener contenido",
                })}
