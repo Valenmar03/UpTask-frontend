@@ -132,7 +132,9 @@ export default function DetailsTask({
                   <p>{data.description}</p>
                </div>
                <div className="px-10">
-                  <NotesPanel/>
+                  <NotesPanel
+                     notes={data.notes}
+                  />
                </div>
                   {
                      showHistory && (

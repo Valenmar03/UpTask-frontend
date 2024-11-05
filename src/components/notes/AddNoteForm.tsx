@@ -20,6 +20,7 @@ export default function AddNoteForm() {
    const {
       register,
       handleSubmit,
+      reset,
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
@@ -28,8 +29,8 @@ export default function AddNoteForm() {
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: (data) => {
-      console.log(data)
+    onSuccess: () => {
+      reset()
     }
    })
 
@@ -43,7 +44,7 @@ export default function AddNoteForm() {
             <input
                id="content"
                type="text"
-               className="bg-gray-200 dark:bg-neutral-700 rounded-md py-2 pl-2 col-span-8"
+               className="bg-gray-200 dark:bg-neutral-800 rounded-md py-2 pl-2 col-span-8"
                {...register("content", {
                   required: "La nota debe tener contenido",
                })}
@@ -51,7 +52,7 @@ export default function AddNoteForm() {
             <input
                type="submit"
                value="+"
-               className="bg-blue-200 hover:bg-blue-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 text-3xl rounded-md cursor-pointer  col-span-2 duration-200 text-center text-blue-700 dark:text-gray-200 w-full"
+               className="bg-blue-200 hover:bg-blue-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-3xl rounded-md cursor-pointer  col-span-2 duration-200 text-center text-blue-700 dark:text-gray-200 w-full"
             />
          </div>
          {errors.content && (
