@@ -148,13 +148,13 @@ export default function DetailsTask({
                            
                            <ul className="mt-3 bg-gray-200 dark:bg-neutral-700 mx-10 rounded-md max-h-32 overflow-y-auto">
                               {data.completedBy.map((change, index) => (
-                                 <li key={index} className={`w-full flex justify-between py-1 px-24 hover:bg-gray-300 dark:hover:bg-neutral-600
+                                 <li key={index} className={`w-full flex flex-col items-center sm:flex-row justify-between py-1  hover:bg-gray-300 dark:hover:bg-neutral-600
                                  ${index === 0 && 'rounded-t-md'} 
                                  ${index === data.completedBy.length - 1 && 'rounded-b-md'}`}>
-                                    <p>
+                                    <p className="px-10">
                                        {change.user?.name}   
                                     </p>
-                                    <p className={`font-bold
+                                    <p className={`font-bold px-10
                                           ${
                                              theme === "light"
                                                 ? statusStyles[change.status].textColorLight

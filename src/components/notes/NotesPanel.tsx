@@ -19,7 +19,11 @@ export default function NotesPanel({ notes }: NotesPanelProps) {
                className={`size-6 cursor-pointer ${
                   isNotesExpanded && "rotate-90"
                } duration-100`}
-               onClick={() => setIsNotesExpanded(!isNotesExpanded)}
+               onClick={() => {
+                  setIsNotesExpanded(!isNotesExpanded)
+                  setAddNote(false);
+               }}
+
             />
             <h3 className="text-xl ml-auto">Notas de Tarea</h3>
             <PlusIcon
