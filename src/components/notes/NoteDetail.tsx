@@ -24,7 +24,9 @@ export default function NoteDetail({ note, projectManager }: { note: Note, proje
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      data.message === "Note deleted successfully" &&
+         toast.success('La nota se eliminó correctamente')
       queryClient.invalidateQueries({queryKey: ['task', taskId]})
     }
    })
