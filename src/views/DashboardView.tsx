@@ -62,7 +62,7 @@ export default function DashboardView() {
                   onClick={() => navigate("?newProject=true")}
                   className="text-white bg-purple-500 px-8 py-3 rounded-md hover:bg-purple-600 duration-200 text-xl"
                >
-                  Nuevo Projecto
+                  Nuevo Proyecto
                </button>
             </nav>
          </div>

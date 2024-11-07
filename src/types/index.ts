@@ -26,7 +26,6 @@ export const userSchema = authSchema.pick({
 })
 export type User = z.infer<typeof userSchema>
 
-
 const noteSchema = z.object({
    _id: z.string(),
    content: z.string(),
@@ -50,7 +49,10 @@ export const taskSchema = z.object({
    _id: z.string(),
    name: z.string(),
    description: z.string(),
-   project: z.string(),
+   project: z.object({
+      _id: z.string(),
+      manager: z.string()
+   }),
    status: taskStatusSchema,
    completedBy: z.array(
       z.object({

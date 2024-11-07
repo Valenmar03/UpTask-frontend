@@ -1,14 +1,15 @@
 import { useState } from "react";
 import AddNoteForm from "./AddNoteForm";
 import { ChevronRightIcon, PlusIcon } from "@heroicons/react/20/solid";
-import { Note } from "../../types";
+import { Note, Project } from "../../types";
 import NoteDetail from "./NoteDetail";
 
 type NotesPanelProps = {
    notes: Note[];
+   projectManager: Project['manager']
 };
 
-export default function NotesPanel({ notes }: NotesPanelProps) {
+export default function NotesPanel({ notes, projectManager }: NotesPanelProps) {
    const [addNote, setAddNote] = useState(false);
    const [isNotesExpanded, setIsNotesExpanded] = useState(true);
 
@@ -45,7 +46,7 @@ export default function NotesPanel({ notes }: NotesPanelProps) {
                      .slice()
                      .reverse()
                      .map((note) => (
-                        <NoteDetail key={note._id} note={note} />
+                        <NoteDetail key={note._id} note={note} projectManager={projectManager} />
                      ))}
                </div>
             ) : (

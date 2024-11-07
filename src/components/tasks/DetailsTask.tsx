@@ -134,6 +134,7 @@ export default function DetailsTask({
                <div className="px-10">
                   <NotesPanel
                      notes={data.notes}
+                     projectManager={data.project.manager}
                   />
                </div>
                   {
