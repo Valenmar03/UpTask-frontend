@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 import Spinner from "../components/Spinner";
 
 export default function AppLayout() {
-   const { data, isError, isLoading } = useAuth();
+   const { data, isLoading } = useAuth();
 
    const [theme, setTheme] = useState(() => {
       const themeLS = localStorage.getItem("theme");
