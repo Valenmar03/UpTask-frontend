@@ -5,7 +5,9 @@ export default function ProfileLayout() {
    return (
       <>
          <Tabs/>
-         <Outlet/>
+         <div className="md:mx-28 lg:mx-60">
+            <Outlet/>
+         </div>
       </>
    );
 }
