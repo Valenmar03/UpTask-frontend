@@ -35,7 +35,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                     className="text-lg"
                 >Nombre</label>
                 <input type="text" id="name" placeholder="Tu nombre"
-                className="p-3 bg-gray-200 text-black rounded"
+                className={`p-3 bg-gray-200 text-black rounded ${errors.name && 'border-l-4 border-red-600'}`}
                 {...register("name", {
                     required: "Nombre de usuario obligatorio"
                 })}/>
@@ -47,7 +47,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                     className="text-lg"
                 >Email</label>
                 <input type="text" id="name" placeholder="Tu nombre"
-                className="p-3 bg-gray-200  text-black rounded"
+                className={`p-3 bg-gray-200 text-black rounded ${errors.email && 'border-l-4 border-red-600'}`}
                 {...register("email", {
                     required: "Correo obligatorio"
                 })}/>
