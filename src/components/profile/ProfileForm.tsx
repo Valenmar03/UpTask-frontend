@@ -13,7 +13,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
    } = useForm({ defaultValues: data });
 
    const handleEditProfile = (formData : UserProfileForm) => {
-    
+
    }
    return (
       <>
@@ -35,7 +35,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                     className="text-lg"
                 >Nombre</label>
                 <input type="text" id="name" placeholder="Tu nombre"
-                className="p-3 bg-gray-200 dark:bg-neutral-600 rounded"
+                className="p-3 bg-gray-200 text-black rounded"
                 {...register("name", {
                     required: "Nombre de usuario obligatorio"
                 })}/>
@@ -47,7 +47,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                     className="text-lg"
                 >Email</label>
                 <input type="text" id="name" placeholder="Tu nombre"
-                className="p-3 bg-gray-200 dark:bg-neutral-600 rounded"
+                className="p-3 bg-gray-200  text-black rounded"
                 {...register("email", {
                     required: "Correo obligatorio"
                 })}/>
