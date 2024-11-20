@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
 import { User, UserProfileForm } from "../../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateProfile } from "../../api/ProfileAPI";
+import { toast } from "react-toastify";
 
 type ProfileFormProps = {
    data: User;
@@ -12,9 +15,23 @@ export default function ProfileForm({ data }: ProfileFormProps) {
       formState: { errors },
    } = useForm({ defaultValues: data });
 
-   const handleEditProfile = (formData : UserProfileForm) => {
+   const queryClient = useQueryClient()
 
-   }
+   const { mutate } = useMutation({
+    mutationFn: updateProfile,
+    onError: (err) => {
+        err.message === 'Email already exists' && 
+            toast.error('El correo ya existe')
+    },
+    onSuccess:() => {
+        toast.success('Perfil actualzado')
+        queryClient.invalidateQueries({queryKey: ['user']})
+    }
+   })
+
+   const handleEditProfile = (formData : UserProfileForm) => mutate(formData)
+
+
    return (
       <>
          <div>
