@@ -63,7 +63,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                     htmlFor="name"
                     className="text-lg"
                 >Email</label>
-                <input type="text" id="name" placeholder="Tu nombre"
+                <input type="text" id="name" placeholder="Correo Electronico"
                 className={`p-3 bg-gray-200 text-black rounded ${errors.email && 'border-l-4 border-red-600'}`}
                 {...register("email", {
                     required: "Correo obligatorio"
