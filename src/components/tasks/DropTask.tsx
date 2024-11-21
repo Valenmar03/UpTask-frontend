@@ -1,8 +1,20 @@
+import { useDroppable } from "@dnd-kit/core"
 
-export default function DropTask() {
+type DropTaskProps = {
+    status: string;
+}
+
+export default function DropTask({ status }: DropTaskProps) {
+
+  const { isOver, setNodeRef } = useDroppable({
+    id: status,
+  })
   return (
-    <div>
-      DropTask
+    <div 
+        ref={setNodeRef}
+        className="border rounded-md p-2 text-center my-3 w-4/5 mx-auto"
+    >
+      Soltar Tarea aquí
     </div>
   )
 }

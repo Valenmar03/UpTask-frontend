@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Task } from "../../types";
 import TaskCard from "./TaskCard";
 import DropTask from "./DropTask";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 
 type TaskListProps = {
    tasks: Task[];
@@ -57,11 +57,21 @@ export default function TaskList({ tasks }: TaskListProps) {
       return { ...acc, [task.status]: currentGroup };
    }, initialStatusGroups);
 
+   const handleDragEnd = (e : DragEndEvent) => {
+      const { over, active } = e
+
+      if(over && over.id){
+         
+      }
+   }
+
    return (
       <>
          {tasks.length ? (
             <div className="flex gap-1 overflow-x-scroll 2xl:overflow-auto pb-32">
-               <DndContext>
+               <DndContext
+                  onDragEnd={handleDragEnd}
+               >
                   {Object.entries(groupedTasks).map(([status, tasks]) => (
                      <div
                         key={status}
@@ -74,7 +84,7 @@ export default function TaskList({ tasks }: TaskListProps) {
                            {statusTranslations[status].name}
                         </h3>
 
-                        <DropTask />
+                        <DropTask status={status}/>
                         <div
                            key={`${status}List`}
                            className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
