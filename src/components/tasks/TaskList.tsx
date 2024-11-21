@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Project, Task, TaskStatus } from "../../types";
+import { Project, TaskProject, TaskStatus } from "../../types";
 import TaskCard from "./TaskCard";
 import DropTask from "./DropTask";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
@@ -8,11 +8,11 @@ import { changeStatus } from "../../api/TaskAPI";
 import { toast } from "react-toastify";
 
 type TaskListProps = {
-   tasks: Task[];
+   tasks: TaskProject[];
 };
 
 type GroupedTasks = {
-   [key: string]: Task[];
+   [key: string]: TaskProject[];
 };
 
 type statusTranslations = {
@@ -82,9 +82,9 @@ export default function TaskList({ tasks }: TaskListProps) {
          const status = over.id as TaskStatus;
          mutate({ projectId, taskId, status });
 
-         queryClient.setQueryData(["project", projectId], (prevData) => {
+         queryClient.setQueryData(["project", projectId], (prevData: Project) => {
             console.log(prevData)
-            const updatedTask = prevData.tasks.map((task: Task) => {
+            const updatedTask = prevData.tasks.map((task: TaskProject) => {
                if (task._id === taskId) {
                   return {
                      ...task,

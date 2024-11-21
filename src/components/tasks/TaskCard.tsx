@@ -1,10 +1,10 @@
-import { Task } from "../../types";
+import { TaskProject } from "../../types";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDraggable } from "@dnd-kit/core";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
 type TypeCardProps = {
-   task: Task;
+   task: TaskProject;
 };
 
 export default function TaskCard({ task }: TypeCardProps) {

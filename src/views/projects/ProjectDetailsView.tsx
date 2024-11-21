@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getProjectById } from "../../api/ProjectAPI";
+import { getFullProjectById } from "../../api/ProjectAPI";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/Modal";
 import AddTask from "../../components/tasks/AddTask";
@@ -25,7 +25,7 @@ export default function ProjectDetailsView() {
 
    const { data, isLoading, isError } = useQuery({
       queryKey: ["project", projectId],
-      queryFn: () => getProjectById(projectId),
+      queryFn: () => getFullProjectById(projectId),
       retry: false,
    });
    useEffect(() => {
