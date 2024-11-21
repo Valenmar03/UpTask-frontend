@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Task } from "../../types";
 import TaskCard from "./TaskCard";
+import DropTask from "./DropTask";
 
 type TaskListProps = {
    tasks: Task[];
@@ -70,6 +71,8 @@ export default function TaskList({ tasks }: TaskListProps) {
                      >
                         {statusTranslations[status].name}
                      </h3>
+
+                     <DropTask/>
                      <div
                         key={`${status}List`}
                         className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
