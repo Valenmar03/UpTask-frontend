@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Task } from "../../types";
 import TaskCard from "./TaskCard";
 import DropTask from "./DropTask";
+import { DndContext } from "@dnd-kit/core";
 
 type TaskListProps = {
    tasks: Task[];
@@ -60,37 +61,39 @@ export default function TaskList({ tasks }: TaskListProps) {
       <>
          {tasks.length ? (
             <div className="flex gap-1 overflow-x-scroll 2xl:overflow-auto pb-32">
-               {Object.entries(groupedTasks).map(([status, tasks]) => (
-                  <div
-                     key={status}
-                     className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5"
-                  >
-                     <h3
-                        key={`${status}Title`}
-                        className={`mt-10 text-center text-xl capitalize border-b-4 ${statusTranslations[status].color} pb-2 w-[75%] mx-auto`}
-                     >
-                        {statusTranslations[status].name}
-                     </h3>
-
-                     <DropTask/>
+               <DndContext>
+                  {Object.entries(groupedTasks).map(([status, tasks]) => (
                      <div
-                        key={`${status}List`}
-                        className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
+                        key={status}
+                        className="min-w-[300px] 2xl:min-w-0 2xl:w-1/5"
                      >
-                        {groupedTasks[status].length ? (
-                           <ul className="divide-y-4 divide-gray-300 dark:divide-neutral-900">
-                              {tasks.map((task) => (
-                                 <TaskCard key={task._id} task={task}/>
-                              ))}
-                           </ul>
-                        ) : (
-                           <p className="text-center mt-5 text">
-                              No hay Tareas 
-                           </p>
-                        )}
+                        <h3
+                           key={`${status}Title`}
+                           className={`mt-10 text-center text-xl capitalize border-b-4 ${statusTranslations[status].color} pb-2 w-[75%] mx-auto`}
+                        >
+                           {statusTranslations[status].name}
+                        </h3>
+
+                        <DropTask />
+                        <div
+                           key={`${status}List`}
+                           className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
+                        >
+                           {groupedTasks[status].length ? (
+                              <ul className="divide-y-4 divide-gray-300 dark:divide-neutral-900">
+                                 {tasks.map((task) => (
+                                    <TaskCard key={task._id} task={task} />
+                                 ))}
+                              </ul>
+                           ) : (
+                              <p className="text-center mt-5 text">
+                                 No hay Tareas
+                              </p>
+                           )}
+                        </div>
                      </div>
-                  </div>
-               ))}
+                  ))}
+               </DndContext>
             </div>
          ) : (
             <div className="space-y-2">
