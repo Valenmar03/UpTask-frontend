@@ -1,8 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { Task } from "../../types";
+import { useNavigate, useParams } from "react-router-dom";
+import { Task, TaskStatus } from "../../types";
 import TaskCard from "./TaskCard";
 import DropTask from "./DropTask";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { changeStatus } from "../../api/TaskAPI";
+import { toast } from "react-toastify";
 
 type TaskListProps = {
    tasks: Task[];
@@ -57,11 +60,29 @@ export default function TaskList({ tasks }: TaskListProps) {
       return { ...acc, [task.status]: currentGroup };
    }, initialStatusGroups);
 
+   const params = useParams()
+   const projectId = params.projectId!
+   const queryClient = useQueryClient()
+   const { mutate } = useMutation({
+      mutationFn: changeStatus,
+      onError:() => {
+         toast.error("Error cambiando el estado")
+      },
+      onSuccess: () => {
+         toast.success('Estado modificado correctamente')
+         queryClient.invalidateQueries({queryKey: ['project', projectId]})
+      }
+   })
+
+
    const handleDragEnd = (e : DragEndEvent) => {
       const { over, active } = e
 
       if(over && over.id){
-         
+         const taskId = active.id.toString()
+         const status = over.id as TaskStatus
+
+         mutate({ projectId, taskId, status })
       }
    }
 
