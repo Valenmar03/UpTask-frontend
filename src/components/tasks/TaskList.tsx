@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Task, TaskStatus } from "../../types";
+import { Project, Task, TaskStatus } from "../../types";
 import TaskCard from "./TaskCard";
 import DropTask from "./DropTask";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
@@ -60,39 +60,53 @@ export default function TaskList({ tasks }: TaskListProps) {
       return { ...acc, [task.status]: currentGroup };
    }, initialStatusGroups);
 
-   const params = useParams()
-   const projectId = params.projectId!
-   const queryClient = useQueryClient()
+   const params = useParams();
+   const projectId = params.projectId!;
+   const queryClient = useQueryClient();
    const { mutate } = useMutation({
       mutationFn: changeStatus,
-      onError:() => {
-         toast.error("Error cambiando el estado")
+      onError: () => {
+         toast.error("Error cambiando el estado");
       },
       onSuccess: () => {
-         toast.success('Estado modificado correctamente')
-         queryClient.invalidateQueries({queryKey: ['project', projectId]})
+         toast.success("Estado modificado correctamente");
+         queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      },
+   });
+
+   const handleDragEnd = (e: DragEndEvent) => {
+      const { over, active } = e;
+
+      if (over && over.id) {
+         const taskId = active.id.toString();
+         const status = over.id as TaskStatus;
+         mutate({ projectId, taskId, status });
+
+         queryClient.setQueryData(["project", projectId], (prevData) => {
+            console.log(prevData)
+            const updatedTask = prevData.tasks.map((task: Task) => {
+               if (task._id === taskId) {
+                  return {
+                     ...task,
+                     status,
+                  };
+               }
+               return task;
+            });
+
+            return {
+               ...prevData,
+               tasks: updatedTask,
+            }
+         });
       }
-   })
-
-
-   const handleDragEnd = (e : DragEndEvent) => {
-      const { over, active } = e
-
-      if(over && over.id){
-         const taskId = active.id.toString()
-         const status = over.id as TaskStatus
-
-         mutate({ projectId, taskId, status })
-      }
-   }
+   };
 
    return (
       <>
          {tasks.length ? (
             <div className="flex gap-1 overflow-x-scroll 2xl:overflow-auto pb-32">
-               <DndContext
-                  onDragEnd={handleDragEnd}
-               >
+               <DndContext onDragEnd={handleDragEnd}>
                   {Object.entries(groupedTasks).map(([status, tasks]) => (
                      <div
                         key={status}
@@ -105,7 +119,7 @@ export default function TaskList({ tasks }: TaskListProps) {
                            {statusTranslations[status].name}
                         </h3>
 
-                        <DropTask status={status}/>
+                        <DropTask status={status} />
                         <div
                            key={`${status}List`}
                            className="p-1 rounded bg-gray-300 dark:bg-neutral-900 mt-5 min-h-full"
