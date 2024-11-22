@@ -54,7 +54,7 @@ export default function DeleteProjectModal({
 
    return (
       <div
-         className="bg-gray-100 dark:bg-neutral-800 w-10/12 md:w-2/3 lg:w-1/2 xl:w-1/4 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
+         className="bg-gray-100 dark:bg-neutral-800 w-10/12 sm:w-2/3 md:w-1/2 custom-lg:w-1/3 xl:w-2/5 2xl:w-1/4 p-5 mt-48 md:mx-auto rounded-md transition-all ease-in duration-300 mx-auto"
          onClick={(e) => e.stopPropagation()}
       >
          <div className=" text-balance w-full mx-auto">
@@ -64,7 +64,7 @@ export default function DeleteProjectModal({
                <span className="text-red-600">{project.projectName}</span>
             </p>
             <form
-               className="xl:mx-10 mt-5"
+               className=" mt-5"
                noValidate
                onSubmit={handleSubmit(handleDeletePassword)}
             >
@@ -73,7 +73,7 @@ export default function DeleteProjectModal({
                      id="password"
                      type="password"
                      placeholder="Ingrese su contraseña"
-                     className={`p-3 bg-gray-200 text-black rounded ${
+                     className={`p-3 bg-gray-200 text-black rounded md:mx-10 ${
                         errors.password && "border-l-4 border-red-600"
                      }`}
                      {...register("password", {
@@ -84,7 +84,7 @@ export default function DeleteProjectModal({
                      <p className="text-red-600">{errors.password.message}</p>
                   )}
                </div>
-               <div className="flex flex-col gap-3 xl:gap-0 xl:flex-row justify-around mt-5">
+               <div className="flex flex-col gap-3 xl:gap-2 md:flex-row justify-around mt-5 mx-auto">
                   <button
                      className="rounded-md px-12 py-3 text-lg bg-red-600 hover:bg-red-700 duration-200 disabled:cursor-not-allowed disabled:bg-opacity-70"
                      type="submit"

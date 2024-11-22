@@ -61,7 +61,7 @@ export default function DashboardItem({ project }: { project: ProjectDashboard }
             </p>
          </div>
 
-         <div className="opacity-0 group-hover:opacity-100">
+         <div className="lg:opacity-0 group-hover:opacity-100">
             <Menu as="div" className="relative flex-none">
                <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
                   <span className="sr-only">opciones</span>
