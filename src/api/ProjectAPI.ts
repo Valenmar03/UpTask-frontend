@@ -17,8 +17,6 @@ export async function getAllProjects() {
    try {
       const { data } = await api("/projects"); // No se pone el get por que es el default en axios
       const response = dashboardProjectsSchema.safeParse(data);
-      console.log(data)
-      console.log(response)
       if(response.success){
          return response.data
       }
