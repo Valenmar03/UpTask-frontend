@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { Project, ProjectFormData, dashboardProjectSchema, editProjectSchema, projectSchema } from "../types";
+import { Project, ProjectFormData, dashboardProjectsSchema, editProjectSchema, projectSchema } from "../types";
 
 export async function createProject(formData: ProjectFormData) {
    try {
@@ -16,7 +16,9 @@ export async function createProject(formData: ProjectFormData) {
 export async function getAllProjects() {
    try {
       const { data } = await api("/projects"); // No se pone el get por que es el default en axios
-      const response = dashboardProjectSchema.safeParse(data);
+      const response = dashboardProjectsSchema.safeParse(data);
+      console.log(data)
+      console.log(response)
       if(response.success){
          return response.data
       }

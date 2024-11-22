@@ -59,7 +59,7 @@ export default function ProjectTeamView() {
 
 
    const { data: user } = useAuth();
-   const managerId : Project['manager'] = useMemo(() => project?.manager, [project])
+   const managerId : Project['manager'] = useMemo(() => project?.manager, [project])!
 
    if (isError) return <Navigate to={"/404"} />;
    if(user)return (

@@ -2,13 +2,13 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-import { Project } from "../../types";
+import {  ProjectDashboard } from "../../types";
 import Modal from "../Modal";
 import { useAuth } from "../../hooks/useAuth";
 import { isManager } from "../../utils/policies";
 import DeleteProjectModal from "./DeleteProjectModal";
 
-export default function DashboardItem({ project }: { project: Project }) {
+export default function DashboardItem({ project }: { project: ProjectDashboard }) {
    const [modal, setModal] = useState(false);
    const [animateModal, setAnimateModal] = useState(false);
 

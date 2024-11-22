@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProject } from "../../api/ProjectAPI";
 import { toast } from "react-toastify";
-import { checkPasswordForm, Project } from "../../types";
+import { checkPasswordForm, ProjectDashboard } from "../../types";
 import { useForm } from "react-hook-form";
 import { checkPassword } from "../../api/AuthAPI";
 
 type DeleteProjectModalProps = {
    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-   project: Project;
+   project: ProjectDashboard;
    closeModal: () => void;
 };
 

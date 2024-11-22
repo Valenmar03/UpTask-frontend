@@ -83,7 +83,6 @@ export default function TaskList({ tasks }: TaskListProps) {
          mutate({ projectId, taskId, status });
 
          queryClient.setQueryData(["project", projectId], (prevData: Project) => {
-            console.log(prevData)
             const updatedTask = prevData.tasks.map((task: TaskProject) => {
                if (task._id === taskId) {
                   return {
