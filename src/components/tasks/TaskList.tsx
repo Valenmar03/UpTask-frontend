@@ -63,6 +63,7 @@ export default function TaskList({ tasks }: TaskListProps) {
    const params = useParams();
    const projectId = params.projectId!;
    const queryClient = useQueryClient();
+
    const { mutate } = useMutation({
       mutationFn: changeStatus,
       onError: () => {
@@ -82,22 +83,25 @@ export default function TaskList({ tasks }: TaskListProps) {
          const status = over.id as TaskStatus;
          mutate({ projectId, taskId, status });
 
-         queryClient.setQueryData(["project", projectId], (prevData: Project) => {
-            const updatedTask = prevData.tasks.map((task: TaskProject) => {
-               if (task._id === taskId) {
-                  return {
-                     ...task,
-                     status,
-                  };
-               }
-               return task;
-            });
+         queryClient.setQueryData(
+            ["project", projectId],
+            (prevData: Project) => {
+               const updatedTask = prevData.tasks.map((task: TaskProject) => {
+                  if (task._id === taskId) {
+                     return {
+                        ...task,
+                        status,
+                     };
+                  }
+                  return task;
+               });
 
-            return {
-               ...prevData,
-               tasks: updatedTask,
+               return {
+                  ...prevData,
+                  tasks: updatedTask,
+               };
             }
-         });
+         );
       }
    };
 

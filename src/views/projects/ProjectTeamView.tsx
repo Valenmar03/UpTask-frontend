@@ -12,7 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProjectTeam } from "../../api/TeamAPI";
 import ProjectsItemsLoading from "../../components/Loadings/ProjectsItemsLoading";
 import MemberItem from "../../components/projects/Team/MemberItem";
-import { getProjectById } from "../../api/ProjectAPI";
+import { getFullProjectById } from "../../api/ProjectAPI";
 import { Project } from "../../types";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -51,7 +51,7 @@ export default function ProjectTeamView() {
 
    const { data: project } = useQuery({
       queryKey: ["project", projectId],
-      queryFn: () => getProjectById(projectId),
+      queryFn: () => getFullProjectById(projectId),
       retry: false,
    });
 
